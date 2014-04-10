@@ -1,0 +1,15 @@
+(********************************************************************
+ * COPYRIGHT -- Bernecker + Rainer
+ ********************************************************************
+ * File: Global.var
+ * Author: necidj
+ * Created: March 17, 2014
+ ********************************************************************
+ * Global variables of project TestStand03_basic
+ ********************************************************************)
+VAR
+	gAxis01 : ACP10AXIS_typ;
+	gAxis02 : ACP10AXIS_typ;
+	gAxis03 : ACP10AXIS_typ;
+	gAxis04 : ACP10AXIS_typ;
+END_VAR

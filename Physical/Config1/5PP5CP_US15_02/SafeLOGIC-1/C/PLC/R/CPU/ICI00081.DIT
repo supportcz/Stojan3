@@ -1,0 +1,244 @@
+(*
+T: FUNCTION_BLOCK SF_SafeMC_BR_V1_02
+FW: YES	NO_VARIANT SF_SafeMC_BR_V1_02 SKIP_NOTHING	
+CI#: 81
+QSL: 0
+QVE: 39
+QVPC: 39
+QPar: 36
+QFBI: 1
+*)
+
+Activate	1	VAR_INPUT	@TYP:1
+		     
+
+;
+
+
+S_RequestSTO	2	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSTO1	3	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSBC	4	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSOS	5	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSS1	6	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSS2	7	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSLS1	8	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSLS2	9	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSLS3	10	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSLS4	11	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSLI	12	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSDIpos	13	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+S_RequestSDIneg	14	VAR_INPUT	@TYP:43
+		     
+
+;
+
+
+Reset	15	VAR_INPUT	@TYP:1
+		     
+
+;
+
+
+S_AxisID	16	VAR_INPUT	@TYP:48
+		     
+@TYP:48# 00#ffff
+;
+
+
+Ready	17	VAR_OUTPUT	@TYP:1
+		     
+
+;
+
+
+S_SafetyActiveSTO	18	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSTO1	19	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSBC	20	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSOS	21	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSS1	22	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSS2	23	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSLS1	24	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSLS2	25	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSLS3	26	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSLS4	27	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSLI	28	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSDIpos	29	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSDIneg	30	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_AllReqFuncActive	31	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_SafetyActiveSDC	32	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+S_NotErrFUNC	33	VAR_OUTPUT	@TYP:43
+		     
+
+;
+
+
+Error	34	VAR_OUTPUT	@TYP:1
+		     
+
+;
+
+
+DiagCode	35	VAR_OUTPUT	@TYP:18
+		     
+
+;
+PFW: DIA
+
+AxisStatus	36	VAR_OUTPUT	@TYP:19
+		     
+
+;
+
+
+ControlWord	37	VAR	@TYP:47
+		     
+
+;
+
+
+StatusSMC	38	VAR	@TYP:47
+		     
+
+;
+
+
+SF_SMC_BR_V1_01_1	39	VAR	@FB:82
+		     
+
+;
+

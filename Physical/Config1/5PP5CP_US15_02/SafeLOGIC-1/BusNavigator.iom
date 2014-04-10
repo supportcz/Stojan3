@@ -1,0 +1,6 @@
+<!--xml version= "1.0" encoding="utf-8"-->
+<!--IOMapping Version="3.2"-->
+<IOOffsets SIBytes="2048" SOBytes="2048" NSIBytes="1024" NSOBytes="1024" ConnectionsValidOffset="29" >
+		<Module Name="SL1.SM1" Hardware="X20SL8010" SafeLogicID="1" SafeModuleID="1" SISize="1" SOSize="1" NSISize="132" NSOSize="132" SIOffset="16" SOOffset="12" NSIOffset="0" NSOOffset="0" />
+		<Module Name="SL1.SM2" Hardware="8BVSV2SAFE1-1" SafeLogicID="1" SafeModuleID="2" SISize="12" SOSize="4" NSISize="12" NSOSize="4" SIOffset="17" SOOffset="13" NSIOffset="132" NSOOffset="132" ConnectionValidBitNumber="0" AxisID="0" AxisName="gAxis01" />
+</IOOffsets>

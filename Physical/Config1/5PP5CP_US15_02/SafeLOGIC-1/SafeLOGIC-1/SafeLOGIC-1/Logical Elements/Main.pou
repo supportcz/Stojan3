@@ -1,0 +1,456 @@
+﻿PROGRAM Main
+{ VariableWorksheet := 'Variables' }
+﻿VAR
+    (****** NewGroup ******)
+    SF_SafeMC_BR_V1_02_1 : SF_SafeMC_BR_V1_02;
+    Error : BOOL {Feedback := 0};
+    ErrorCode : WORD;
+    AxisStatus : DWORD;
+    Acknowledge : BOOL;
+END_VAR
+{ CodeWorksheet := 'Code', Type := '.fbd' }
+﻿<?xml version="1.0" encoding="utf-16" standalone="yes"?><FBD>
+  <addData>
+    <data name="http://www.kw-software.com" handleUnknown="preserve" />
+  </addData>
+  <inVariable localId="0" height="4" width="22">
+    <position x="152" y="134" />
+    <expression>gAxis01</expression>
+    <connectionPointOut>
+      <relPosition x="22" y="2" />
+    </connectionPointOut>
+  </inVariable>
+  <block localId="37" height="168" width="94" typeName="SF_SafeMC_BR_V1_02" instanceName="SF_SafeMC_BR_V1_02_1">
+    <position x="178" y="8" />
+    <addData>
+      <data name="http://www.kw-software.com" handleUnknown="preserve">
+        <fbData fbFuType="0" />
+      </data>
+    </addData>
+    <inputVariables>
+      <variable formalParameter="Activate">
+        <connectionPointIn>
+          <relPosition x="0" y="8" />
+          <connection refLocalId="39" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="1" inState="128" outState="0" width="11" height="2" flagType="" dataType="BOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSTO">
+        <connectionPointIn>
+          <relPosition x="0" y="16" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="2" inState="128" outState="0" width="18" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSTO1">
+        <connectionPointIn>
+          <relPosition x="0" y="24" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="3" inState="128" outState="0" width="19" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSBC">
+        <connectionPointIn>
+          <relPosition x="0" y="32" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="4" inState="128" outState="0" width="18" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSOS">
+        <connectionPointIn>
+          <relPosition x="0" y="40" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="5" inState="128" outState="0" width="18" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSS1">
+        <connectionPointIn>
+          <relPosition x="0" y="48" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="6" inState="128" outState="0" width="18" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSS2">
+        <connectionPointIn>
+          <relPosition x="0" y="56" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="7" inState="128" outState="0" width="18" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSLS1">
+        <connectionPointIn>
+          <relPosition x="0" y="64" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="8" inState="128" outState="0" width="19" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSLS2">
+        <connectionPointIn>
+          <relPosition x="0" y="72" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="9" inState="128" outState="0" width="19" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSLS3">
+        <connectionPointIn>
+          <relPosition x="0" y="80" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="10" inState="128" outState="0" width="19" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSLS4">
+        <connectionPointIn>
+          <relPosition x="0" y="88" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="11" inState="128" outState="0" width="19" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSLI">
+        <connectionPointIn>
+          <relPosition x="0" y="96" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="12" inState="128" outState="0" width="17" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSDIpos">
+        <connectionPointIn>
+          <relPosition x="0" y="104" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="13" inState="128" outState="0" width="21" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_RequestSDIneg">
+        <connectionPointIn>
+          <relPosition x="0" y="112" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="14" inState="128" outState="0" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="Reset">
+        <connectionPointIn>
+          <relPosition x="0" y="120" />
+          <connection refLocalId="43" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="15" inState="128" outState="0" width="9" height="2" flagType="" dataType="BOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_AxisID">
+        <connectionPointIn>
+          <relPosition x="0" y="128" />
+          <connection refLocalId="0" />
+        </connectionPointIn>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="16" inState="128" outState="0" width="12" height="2" flagType="" dataType="SAFEINT" />
+          </data>
+        </addData>
+      </variable>
+    </inputVariables>
+    <inOutVariables />
+    <outputVariables>
+      <variable formalParameter="Ready">
+        <connectionPointOut>
+          <relPosition x="94" y="8" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="17" inState="0" outState="128" width="8" height="2" flagType="" dataType="BOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSTO">
+        <connectionPointOut>
+          <relPosition x="94" y="16" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="18" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSTO1">
+        <connectionPointOut>
+          <relPosition x="94" y="24" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="19" inState="0" outState="128" width="23" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSBC">
+        <connectionPointOut>
+          <relPosition x="94" y="32" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="20" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSOS">
+        <connectionPointOut>
+          <relPosition x="94" y="40" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="21" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSS1">
+        <connectionPointOut>
+          <relPosition x="94" y="48" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="22" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSS2">
+        <connectionPointOut>
+          <relPosition x="94" y="56" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="23" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSLS1">
+        <connectionPointOut>
+          <relPosition x="94" y="64" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="24" inState="0" outState="128" width="23" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSLS2">
+        <connectionPointOut>
+          <relPosition x="94" y="72" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="25" inState="0" outState="128" width="23" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSLS3">
+        <connectionPointOut>
+          <relPosition x="94" y="80" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="26" inState="0" outState="128" width="23" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSLS4">
+        <connectionPointOut>
+          <relPosition x="94" y="88" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="27" inState="0" outState="128" width="23" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSLI">
+        <connectionPointOut>
+          <relPosition x="94" y="96" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="28" inState="0" outState="128" width="21" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSDIpos">
+        <connectionPointOut>
+          <relPosition x="94" y="104" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="29" inState="0" outState="128" width="25" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSDIneg">
+        <connectionPointOut>
+          <relPosition x="94" y="112" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="30" inState="0" outState="128" width="25" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_AllReqFuncActive">
+        <connectionPointOut>
+          <relPosition x="94" y="120" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="31" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_SafetyActiveSDC">
+        <connectionPointOut>
+          <relPosition x="94" y="128" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="32" inState="0" outState="128" width="22" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="S_NotErrFUNC">
+        <connectionPointOut>
+          <relPosition x="94" y="136" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="33" inState="0" outState="128" width="16" height="2" flagType="" dataType="SAFEBOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="Error">
+        <connectionPointOut>
+          <relPosition x="94" y="144" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="34" inState="0" outState="128" width="7" height="2" flagType="" dataType="BOOL" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="DiagCode">
+        <connectionPointOut>
+          <relPosition x="94" y="152" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="35" inState="0" outState="128" width="12" height="2" flagType="" dataType="WORD" />
+          </data>
+        </addData>
+      </variable>
+      <variable formalParameter="AxisStatus">
+        <connectionPointOut>
+          <relPosition x="94" y="160" />
+        </connectionPointOut>
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <fp localId="36" inState="0" outState="128" width="13" height="2" flagType="" dataType="DWORD" />
+          </data>
+        </addData>
+      </variable>
+    </outputVariables>
+  </block>
+  <inVariable localId="39" height="4" width="16">
+    <position x="158" y="14" />
+    <expression>TRUE</expression>
+    <connectionPointOut>
+      <relPosition x="16" y="2" />
+    </connectionPointOut>
+  </inVariable>
+  <outVariable localId="40" height="4" width="16">
+    <position x="276" y="150" />
+    <expression>Error</expression>
+    <connectionPointIn>
+      <relPosition x="0" y="2" />
+      <connection refLocalId="37" formalParameter="Error">
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <connectedFormalparameter refLocalId="34" />
+          </data>
+        </addData>
+      </connection>
+    </connectionPointIn>
+  </outVariable>
+  <outVariable localId="41" height="4" width="26">
+    <position x="276" y="158" />
+    <expression>ErrorCode</expression>
+    <connectionPointIn>
+      <relPosition x="0" y="2" />
+      <connection refLocalId="37" formalParameter="DiagCode">
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <connectedFormalparameter refLocalId="35" />
+          </data>
+        </addData>
+      </connection>
+    </connectionPointIn>
+  </outVariable>
+  <outVariable localId="42" height="4" width="28">
+    <position x="276" y="166" />
+    <expression>AxisStatus</expression>
+    <connectionPointIn>
+      <relPosition x="0" y="2" />
+      <connection refLocalId="37" formalParameter="AxisStatus">
+        <addData>
+          <data name="http://www.kw-software.com" handleUnknown="preserve">
+            <connectedFormalparameter refLocalId="36" />
+          </data>
+        </addData>
+      </connection>
+    </connectionPointIn>
+  </outVariable>
+  <inVariable localId="43" height="4" width="32">
+    <position x="142" y="126" />
+    <expression>Acknowledge</expression>
+    <connectionPointOut>
+      <relPosition x="32" y="2" />
+    </connectionPointOut>
+  </inVariable>
+</FBD>
+END_PROGRAM

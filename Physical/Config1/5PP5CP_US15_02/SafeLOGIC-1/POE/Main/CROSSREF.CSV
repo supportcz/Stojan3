@@ -1,0 +1,5 @@
+Acknowledge,POE\Main\Code.GB,1,IN,43,71,Read,,BOOL,,,VAR,LOCAL,,
+AxisStatus,POE\Main\Code.GB,2,OUT,42,48,Write,,DWORD,,,VAR,LOCAL,,
+Error,POE\Main\Code.GB,2,OUT,40,54,Write,,BOOL,,,VAR,LOCAL,,
+ErrorCode,POE\Main\Code.GB,2,OUT,41,49,Write,,WORD,,,VAR,LOCAL,,
+SF_SafeMC_BR_V1_02_1,POE\Main\Code.GB,0,,37,89,,,,,,VAR,FB,,

@@ -1,0 +1,4 @@
+﻿VAR_GLOBAL
+    (****** NewGroup ******)
+    gAxis01 AT %SAFEINT#0 : SAFEINT := SAFEINT#0 {Custom := SL1.SM2.gAxis01#SAFEINT.0};
+END_VAR

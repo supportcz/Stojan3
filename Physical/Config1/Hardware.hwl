@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<BR.AS.HardwareTopology Version="0.0.0.1">
+  <Modules>
+    <Module Name="5PP520.1043-00" Type="5PP520.1043-00" X="294" Y="-180" />
+    <Module Name="5PP5IF.FPLM-00" Type="5PP5IF.FPLM-00" X="488.099976" Y="-147" />
+    <Module Name="5PP5CP_US15_02" Type="5PP5CP.US15-02" X="488.099976" Y="-170" />
+    <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" X="691.8998" Y="-147.902069" />
+    <Module Name="8BAC0120.000-1a" Type="8BAC0120.000-1" X="711.499756" Y="27.09793" />
+    <Module Name="8BAC0120.000-1" Type="8BAC0120.000-1" X="694.699768" Y="27.09793" />
+    <Module Name="8BVP0220HC00.000-1" Type="8BVP0220HC00.000-1" X="617.8998" Y="-147.902069" />
+    <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" X="731.8998" Y="-146.902069" />
+    <Module Name="8BVSV2SAFE1-1" Type="8BVSV2SAFE1-1" X="734.699768" Y="28.09793" />
+    <Module Name="8LSA34.S1060C000-0" Type="8LSA34.S1060C000-0" X="698.8998" Y="107.097931" />
+    <Module Name="X20SL8010" Type="X20SL8010" X="788.519165" Y="-148.7288" />
+    <Module Name="X20TB52" Type="X20TB52" X="862.519165" Y="-121.728806" />
+    <Module Name="X20MK0201" Type="X20MK0201" X="815.519165" Y="-78.7288055" />
+  </Modules>
+  <Links>
+    <Link From="8BVP0220HC00.000-1" To="5PP5IF.FPLM-00">
+      <Point X="629.7998" Y="-144.902069" />
+      <Point X="629.7998" Y="-152.902069" />
+      <Point X="629.7998" Y="-155.739838" />
+      <Point X="571.685059" Y="-155.739838" />
+      <Point X="571.685059" Y="-127" />
+      <Point X="573.1" Y="-127" />
+      <Point X="533.1" Y="-127" />
+    </Link>
+  </Links>
+</BR.AS.HardwareTopology>
