@@ -1,9 +1,9 @@
 [Project]
 NumOfDownloadFiles=10
-Crc=5E674A23
-LastChangeDate=1395129664
-LastChangeDateHumanReadable=18.03.2014    09:01:04
-LastChangeUser=necidj
+Crc=BD4DFE64
+LastChangeDate=1401113946
+LastChangeDateHumanReadable=26.05.2014    16:19:06
+LastChangeUser=vancurar
 [Download]
 1=DLFiles\dlfile01.sos
 2=DLFiles\dlfile02.sos

@@ -13,7 +13,6 @@
     <AutomationRuntime Version="G4.06" />
     <Build GccVersion="4.1.2" />
     <DefaultTargetMemory Tasks="UserROM" />
-    <Safety SafetyRelease="1.5" />
-    <OnlineConfiguration Name="TestStand3" DeviceType="TCPIP" DeviceParameters="/IF=tcpip /LOPO=11159 /SA=1" ConnectionParameters="/RT=1000 /AM=* /DAIP=10.42.10.248 /REPO=11159 /ANSL=1" Description="" />
+    <Safety SafetyRelease="1.6" />
   </Configuration>
 </Cpu>

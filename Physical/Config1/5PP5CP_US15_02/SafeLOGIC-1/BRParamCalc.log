@@ -1,10 +1,11 @@
-LOGStart created on Tuesday 2014/03/18  UTC 08:01:04:542
+LOGStart created on Monday 2014/05/26  UTC 14:19:06:372
 
-Reading "C:\projects\TestStand03_basic\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.bnc"...
+Reading "C:\Work\BaR\Stojan3\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.bnc"...
 Reading Content "BusConfiguration"
 Reading properties for module "SL1.IF1.ST4". Beginning at line 3
   ParameterGroup "Basic" has 35 parameters.
-  ParameterGroup "Safety_Response_Time_Defaults" has 23 parameters.
+  ParameterGroup "Safety_Response_Time_Defaults" has 24 parameters.
+  ParameterGroup "Tables" has 198 parameters.
   Channel "BOOL1" Repeat =99  Actives=8 has 0 parameter groups.
   Channel "BOOLext1" Repeat =256  Actives=0 has 0 parameter groups.
   Channel "INT1" Repeat =99  Actives=0 has 0 parameter groups.
@@ -25,8 +26,12 @@ Reading properties for module "SL1.IF1.ST4". Beginning at line 3
   Channel "SafeBOOL6" Repeat =0  Actives=0 has 0 parameter groups.
   Channel "SafeBOOL7" Repeat =0  Actives=0 has 0 parameter groups.
   Channel "SafeBOOL8" Repeat =0  Actives=0 has 0 parameter groups.
-Module "SL1.IF1.ST4.SL1.SM1" is of type "X20SL8010" and has 24 channels and 2 parameter groups.
-Reading properties for module "SL1.IF1.ST3.SS1". Beginning at line 114
+Module "SL1.IF1.ST4.SL1.SM1" is of type "X20SL8010" and has 24 channels and 3 parameter groups.
+Module "SL1.IF1.ST4.SL1.SM1" is of type "X20SL8010" and has 99 table objects.
+Module "SL1.IF1.ST4.SL1.SM1" is of type "X20SL8010" and has 512 external machine option objects.
+ERROR The query for node "RemanentData" failed! Searching stoped at first line 3
+Module "SL1.IF1.ST4.SL1.SM1" is of type "X20SL8010" and has 0 remanent data objects.
+Reading properties for module "SL1.IF1.ST3.SS1". Beginning at line 326
   ParameterGroup "Basic" has 20 parameters.
   ParameterGroup "Safety_Response_Time" has 10 parameters.
   ParameterGroup "Encoder Unit System" has 6 parameters.
@@ -94,17 +99,23 @@ Reading properties for module "SL1.IF1.ST3.SS1". Beginning at line 114
   Channel "Activate" Repeat =0  Actives=0 has 0 parameter groups.
   Channel "Reset" Repeat =0  Actives=0 has 0 parameter groups.
 Module "SL1.IF1.ST3.SS1.SL1.SM2" is of type "8BVSV2SAFE1-1" and has 51 channels and 15 parameter groups.
-Content "BusConfiguration" successfully read from "C:\projects\TestStand03_basic\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.bnc"
+ERROR The query for node "Table" failed! Searching stoped at first line 326
+Module "SL1.IF1.ST3.SS1.SL1.SM2" is of type "8BVSV2SAFE1-1" and has 0 table objects.
+ERROR The query for node "ExternalMachineOption" failed! Searching stoped at first line 326
+Module "SL1.IF1.ST3.SS1.SL1.SM2" is of type "8BVSV2SAFE1-1" and has 0 external machine option objects.
+ERROR The query for node "RemanentData" failed! Searching stoped at first line 326
+Module "SL1.IF1.ST3.SS1.SL1.SM2" is of type "8BVSV2SAFE1-1" and has 0 remanent data objects.
+Content "BusConfiguration" successfully read from "C:\Work\BaR\Stojan3\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.bnc"
 
 
 
-LOGAppend on Tuesday 2014/03/18  UTC 08:01:04:544
+LOGAppend on Monday 2014/05/26  UTC 14:19:06:373
 
-Reading "C:\projects\TestStand03_basic\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.iom"...
+Reading "C:\Work\BaR\Stojan3\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.iom"...
 Reading Content "IOOffsets"
 IO reservations (MAX number of bytes): SI=2048  SO=2048  NSI=1024  NSO=1024   ConValid = 29  EMOsOffset=0  EMOsSize=0
 Reading properties for module "SL1.SM1". Beginning at line 3
 Module "SL1.SM1.SL1.SM1" has 0 items.
 Reading properties for module "SL1.SM2". Beginning at line 4
 Module "SL1.SM2.SL1.SM2" has 0 items.
-Content "IOOffsets" successfully read from "C:\projects\TestStand03_basic\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.iom"
+Content "IOOffsets" successfully read from "C:\Work\BaR\Stojan3\Physical\Config1\5PP5CP_US15_02\SafeLOGIC-1\BusNavigator.iom"

@@ -1,7 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <?AutomationStudio Version=4.0.17.85 SP?>
-<BusConfiguration Version="4.0" ARVersion="G4.06" SafetyRelease="1.5" Communication="/IF=tcpip /LOPO=11159 /SA=1 /RT=1000 /AM=* /DAIP=10.42.10.247 /REPO=11159 /ANSL=1 /PORT=50000">
-  <Module ID="SL1.IF1.ST4" Name="X20SL8010" Hardware="X20SL8010" SafeLogicID="1" SafeModuleID="1" HWC_Revision="1.6.2.0" FrontFoto="X20SL8010.front.png" Icon="hw_x20sl.ico" HWTypeCode="5" HWC_LastEdit="19.6.2013 14:07:58" ProjectSL="1" Description-de="X20 SafeLOGIC, POWERLINK V2, SafeMC" Description-en="X20 SafeLOGIC, POWERLINK V2, SafeMC" AdditionalSADR="19" CommissioningLocal="1" PasswordSupport="true" FunctionMode="3" TypicalSafeInputSize="1" TypicalSafeOutputSize="1" TypicalInputSize="132" TypicalOutputSize="132" CRC-de="2185128371" CRC-en="1699004298" CRC-fr="1705434561" CRC-data="2494745101" CRC-default="2322949905" FromSafetyRelease="1.5" ToSafetyRelease="1.5">
+<BusConfiguration Version="4.0" ARVersion="G4.06" SafetyRelease="1.6" Communication="/IF=tcpip /LOPO=11159 /SA=1 /RT=1000 /AM=* /DAIP=10.42.10.248 /REPO=11159 /ANSL=1 /PORT=50000">
+  <Module ID="SL1.IF1.ST4" Name="X20SL8010" Hardware="X20SL8010" SafeLogicID="1" SafeModuleID="1" HWC_Revision="1.6.3.0" FrontFoto="X20SL8010.front.png" Icon="hw_x20sl.ico" HWTypeCode="5" HWC_LastEdit="19.2.2014 12:29:24" ProjectSL="1" Description-de="X20 SafeLOGIC, POWERLINK V2, SafeMC" Description-en="X20 SafeLOGIC, POWERLINK V2, SafeMC" AdditionalSADR="20" CommissioningLocal="1" PasswordSupport="true" FunctionMode="3" TypicalSafeInputSize="1" TypicalSafeOutputSize="1" TypicalInputSize="132" TypicalOutputSize="132" CRC-de="570432085" CRC-en="852658896" CRC-fr="3081900840" CRC-data="2535429177" CRC-default="2333503117" FromSafetyRelease="1.6" ToSafetyRelease="1.6">
+    <Template ID="TableSources" Type="UDINT">
+      <Parameter ID="0" Name-en="NOT used" Name-de="NICHT verwendet" Name-fr="inutilisée" />
+      <Parameter ID="1" Name-en="SafeDESIGNER download" Name-de="Download über SafeDESIGNER" Name-fr="SafeDESIGNER téléchargement" />
+    </Template>
+    <Template ID="TableTypes" Type="UDINT">
+      <Parameter ID="65" Name-en="A" Name-de="A" Name-fr="A" />
+      <Parameter ID="82" Name-en="R" Name-de="R" Name-fr="R" />
+      <Parameter ID="83" Name-en="S" Name-de="S" Name-fr="S" />
+    </Template>
     <Template ID="ExternalMOs" Type="UDINT">
       <Parameter ID="0" Name-en="No" Name-de="Nein" Name-fr="DE" />
       <Parameter ID="512" Name-en="Yes-ATTENTION" Name-de="Ja-ACHTUNG" Name-fr="SUR" />
@@ -31,7 +40,7 @@
     </Template>
     <Group ID="Basic">
       <BitStream ID="VendorID" Value="0x00006065" Type="UDINT" />
-      <BitStream ID="HWC_CRC" Value="3301811404" Type="UDINT" />
+      <BitStream ID="HWC_CRC" Value="1790773219" Type="UDINT" />
       <BitStream ID="CRC_Number_of_RxSpdos" Value="100" Type="UDINT" />
       <BitStream ID="CRC_Number_of_TxSpdos" Value="100" Type="UDINT" />
       <BitStream ID="CRC_Number_of_Maps_per_Spdo" Value="32" Type="UDINT" />
@@ -40,12 +49,11 @@
       <BitStream ID="RevisionNumber" Value="0x00000001" Type="UDINT" />
       <BitStream ID="SDPayLoad" Value="8" Type="UDINT" />
       <BitStream ID="ConsecutiveTimeBase_us" Value="100" Type="UDINT" />
-      <BitStream ID="SSDO_Timeout_CT" Value="20000" Type="UDINT" />
-      <BitStream ID="SSDO_Retries" Value="3" Type="UDINT" />
-      <BitStream ID="SNMT_Timeout_CT" Value="20000" Type="UDINT" />
-      <BitStream ID="SNMT_Retries" Value="3" Type="UDINT" />
+      <BitStream ID="SSDO_Timeout_CT" Value="20000" SODIndex="0x1201" SODSubIndex="1" CopyToDomainCRC="true" CopyToDomain="true" Type="UDINT" />
+      <BitStream ID="SSDO_Retries" Value="3" SODIndex="0x1201" SODSubIndex="2" CopyToDomainCRC="true" CopyToDomain="true" Type="USINT" />
+      <BitStream ID="SNMT_Timeout_CT" Value="20000" SODIndex="0x1202" SODSubIndex="1" CopyToDomainCRC="true" CopyToDomain="true" Type="UDINT" />
+      <BitStream ID="SNMT_Retries" Value="3" SODIndex="0x1202" SODSubIndex="2" CopyToDomainCRC="true" CopyToDomain="true" Type="USINT" />
       <BitStream ID="External_UDID" Value="0" Type="UDINT" />
-      <BitStream ID="Node_Guarding_Lifetime" Value="5" Type="UDINT" />
       <BitStream ID="Max_Program_Size" Value="1572864" Type="UDINT" />
       <BitStream ID="DiagBuf_Size" Value="1024" Type="UDINT" />
       <BitStream ID="CF_CodeAddress" Value="0x772000" Type="UDINT" />
@@ -55,6 +63,7 @@
       <BitStream ID="SL2SL_Channels" Value="32" Type="UDINT" />
       <BitStream ID="TransportProtocol" Value="0" Type="UDINT" />
       <BitStream ID="SODautoDefault" Value="1" Type="UDINT" />
+      <BitStream ID="FunctionMode" Value="3" Type="UDINT" />
       <Parameter ID="Optional" UniqueID="0_4" Value="0" Template="Optional" />
       <Parameter ID="Min_required_FW_Rev" UniqueID="0_0" Value="256" Template="MinFwRev" />
       <Parameter ID="Cycle_Time_us" UniqueID="0_1" Value="2000" Range="800-20000" Type="UDINT" />
@@ -75,6 +84,7 @@
       <Parameter ID="Default_Min_Powerlink_CyleTime_us" UniqueID="1_5" Name-en="Default_Min_Powerlink_CycleTime_us" Name-de="Default_Min_Powerlink_CycleTime_us" Value="200" Range="200-30000" Type="UDINT" />
       <Parameter ID="Default_Min_CPU_CrossLinkTask_CyleTime_us" UniqueID="1_6" Name-en="Default_Min_CPU_CrossLinkTask_CycleTime_us" Name-de="Default_Min_CPU_CrossLinkTask_CycleTime_us" Value="0" Range="0-30000" Type="UDINT" />
       <Parameter ID="Default_Worst_Case_Response_Time_us" UniqueID="1_7" Value="50000" Range="3000-500000" Type="UDINT" />
+      <Parameter ID="Default_Node_Guarding_Lifetime" UniqueID="1_8" Value="5" Range="0-255" SODIndex="0x100C" SODSubIndex="2" CopyToDomainCRC="true" Type="USINT" />
       <BitStream ID="HWC_Version" Value="1" Type="UDINT" />
       <BitStream ID="BUR_SAFEPAR_BOOL_LOW" Value="0" Type="BOOL" />
       <BitStream ID="BUR_SAFEPAR_BOOL_HIGH" Value="1" Type="BOOL" />
@@ -90,6 +100,206 @@
       <BitStream ID="BUR_SAFEPAR_INT_HIGH" Value="32000" Type="INT" />
       <BitStream ID="BUR_SAFEPAR_DINT_LOW" Value="-2000000000" Type="DINT" />
       <BitStream ID="BUR_SAFEPAR_DINT_HIGH" Value="0x77359400" Type="DINT" />
+    </Group>
+    <Group ID="Tables">
+      <Parameter ID="TableSource_01" UniqueID="3_1" Name-en="TableSource_01" Name-de="TableSource_01" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_01" UniqueID="4_1" Name-en="TableType_01" Name-de="TableType_01" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_02" UniqueID="3_2" Name-en="TableSource_02" Name-de="TableSource_02" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_02" UniqueID="4_2" Name-en="TableType_02" Name-de="TableType_02" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_03" UniqueID="3_3" Name-en="TableSource_03" Name-de="TableSource_03" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_03" UniqueID="4_3" Name-en="TableType_03" Name-de="TableType_03" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_04" UniqueID="3_4" Name-en="TableSource_04" Name-de="TableSource_04" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_04" UniqueID="4_4" Name-en="TableType_04" Name-de="TableType_04" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_05" UniqueID="3_5" Name-en="TableSource_05" Name-de="TableSource_05" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_05" UniqueID="4_5" Name-en="TableType_05" Name-de="TableType_05" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_06" UniqueID="3_6" Name-en="TableSource_06" Name-de="TableSource_06" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_06" UniqueID="4_6" Name-en="TableType_06" Name-de="TableType_06" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_07" UniqueID="3_7" Name-en="TableSource_07" Name-de="TableSource_07" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_07" UniqueID="4_7" Name-en="TableType_07" Name-de="TableType_07" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_08" UniqueID="3_8" Name-en="TableSource_08" Name-de="TableSource_08" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_08" UniqueID="4_8" Name-en="TableType_08" Name-de="TableType_08" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_09" UniqueID="3_9" Name-en="TableSource_09" Name-de="TableSource_09" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_09" UniqueID="4_9" Name-en="TableType_09" Name-de="TableType_09" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_10" UniqueID="3_10" Name-en="TableSource_10" Name-de="TableSource_10" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_10" UniqueID="4_10" Name-en="TableType_10" Name-de="TableType_10" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_11" UniqueID="3_11" Name-en="TableSource_11" Name-de="TableSource_11" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_11" UniqueID="4_11" Name-en="TableType_11" Name-de="TableType_11" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_12" UniqueID="3_12" Name-en="TableSource_12" Name-de="TableSource_12" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_12" UniqueID="4_12" Name-en="TableType_12" Name-de="TableType_12" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_13" UniqueID="3_13" Name-en="TableSource_13" Name-de="TableSource_13" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_13" UniqueID="4_13" Name-en="TableType_13" Name-de="TableType_13" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_14" UniqueID="3_14" Name-en="TableSource_14" Name-de="TableSource_14" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_14" UniqueID="4_14" Name-en="TableType_14" Name-de="TableType_14" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_15" UniqueID="3_15" Name-en="TableSource_15" Name-de="TableSource_15" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_15" UniqueID="4_15" Name-en="TableType_15" Name-de="TableType_15" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_16" UniqueID="3_16" Name-en="TableSource_16" Name-de="TableSource_16" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_16" UniqueID="4_16" Name-en="TableType_16" Name-de="TableType_16" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_17" UniqueID="3_17" Name-en="TableSource_17" Name-de="TableSource_17" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_17" UniqueID="4_17" Name-en="TableType_17" Name-de="TableType_17" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_18" UniqueID="3_18" Name-en="TableSource_18" Name-de="TableSource_18" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_18" UniqueID="4_18" Name-en="TableType_18" Name-de="TableType_18" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_19" UniqueID="3_19" Name-en="TableSource_19" Name-de="TableSource_19" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_19" UniqueID="4_19" Name-en="TableType_19" Name-de="TableType_19" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_20" UniqueID="3_20" Name-en="TableSource_20" Name-de="TableSource_20" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_20" UniqueID="4_20" Name-en="TableType_20" Name-de="TableType_20" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_21" UniqueID="3_21" Name-en="TableSource_21" Name-de="TableSource_21" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_21" UniqueID="4_21" Name-en="TableType_21" Name-de="TableType_21" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_22" UniqueID="3_22" Name-en="TableSource_22" Name-de="TableSource_22" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_22" UniqueID="4_22" Name-en="TableType_22" Name-de="TableType_22" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_23" UniqueID="3_23" Name-en="TableSource_23" Name-de="TableSource_23" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_23" UniqueID="4_23" Name-en="TableType_23" Name-de="TableType_23" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_24" UniqueID="3_24" Name-en="TableSource_24" Name-de="TableSource_24" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_24" UniqueID="4_24" Name-en="TableType_24" Name-de="TableType_24" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_25" UniqueID="3_25" Name-en="TableSource_25" Name-de="TableSource_25" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_25" UniqueID="4_25" Name-en="TableType_25" Name-de="TableType_25" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_26" UniqueID="3_26" Name-en="TableSource_26" Name-de="TableSource_26" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_26" UniqueID="4_26" Name-en="TableType_26" Name-de="TableType_26" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_27" UniqueID="3_27" Name-en="TableSource_27" Name-de="TableSource_27" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_27" UniqueID="4_27" Name-en="TableType_27" Name-de="TableType_27" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_28" UniqueID="3_28" Name-en="TableSource_28" Name-de="TableSource_28" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_28" UniqueID="4_28" Name-en="TableType_28" Name-de="TableType_28" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_29" UniqueID="3_29" Name-en="TableSource_29" Name-de="TableSource_29" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_29" UniqueID="4_29" Name-en="TableType_29" Name-de="TableType_29" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_30" UniqueID="3_30" Name-en="TableSource_30" Name-de="TableSource_30" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_30" UniqueID="4_30" Name-en="TableType_30" Name-de="TableType_30" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_31" UniqueID="3_31" Name-en="TableSource_31" Name-de="TableSource_31" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_31" UniqueID="4_31" Name-en="TableType_31" Name-de="TableType_31" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_32" UniqueID="3_32" Name-en="TableSource_32" Name-de="TableSource_32" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_32" UniqueID="4_32" Name-en="TableType_32" Name-de="TableType_32" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_33" UniqueID="3_33" Name-en="TableSource_33" Name-de="TableSource_33" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_33" UniqueID="4_33" Name-en="TableType_33" Name-de="TableType_33" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_34" UniqueID="3_34" Name-en="TableSource_34" Name-de="TableSource_34" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_34" UniqueID="4_34" Name-en="TableType_34" Name-de="TableType_34" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_35" UniqueID="3_35" Name-en="TableSource_35" Name-de="TableSource_35" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_35" UniqueID="4_35" Name-en="TableType_35" Name-de="TableType_35" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_36" UniqueID="3_36" Name-en="TableSource_36" Name-de="TableSource_36" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_36" UniqueID="4_36" Name-en="TableType_36" Name-de="TableType_36" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_37" UniqueID="3_37" Name-en="TableSource_37" Name-de="TableSource_37" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_37" UniqueID="4_37" Name-en="TableType_37" Name-de="TableType_37" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_38" UniqueID="3_38" Name-en="TableSource_38" Name-de="TableSource_38" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_38" UniqueID="4_38" Name-en="TableType_38" Name-de="TableType_38" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_39" UniqueID="3_39" Name-en="TableSource_39" Name-de="TableSource_39" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_39" UniqueID="4_39" Name-en="TableType_39" Name-de="TableType_39" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_40" UniqueID="3_40" Name-en="TableSource_40" Name-de="TableSource_40" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_40" UniqueID="4_40" Name-en="TableType_40" Name-de="TableType_40" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_41" UniqueID="3_41" Name-en="TableSource_41" Name-de="TableSource_41" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_41" UniqueID="4_41" Name-en="TableType_41" Name-de="TableType_41" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_42" UniqueID="3_42" Name-en="TableSource_42" Name-de="TableSource_42" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_42" UniqueID="4_42" Name-en="TableType_42" Name-de="TableType_42" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_43" UniqueID="3_43" Name-en="TableSource_43" Name-de="TableSource_43" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_43" UniqueID="4_43" Name-en="TableType_43" Name-de="TableType_43" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_44" UniqueID="3_44" Name-en="TableSource_44" Name-de="TableSource_44" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_44" UniqueID="4_44" Name-en="TableType_44" Name-de="TableType_44" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_45" UniqueID="3_45" Name-en="TableSource_45" Name-de="TableSource_45" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_45" UniqueID="4_45" Name-en="TableType_45" Name-de="TableType_45" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_46" UniqueID="3_46" Name-en="TableSource_46" Name-de="TableSource_46" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_46" UniqueID="4_46" Name-en="TableType_46" Name-de="TableType_46" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_47" UniqueID="3_47" Name-en="TableSource_47" Name-de="TableSource_47" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_47" UniqueID="4_47" Name-en="TableType_47" Name-de="TableType_47" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_48" UniqueID="3_48" Name-en="TableSource_48" Name-de="TableSource_48" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_48" UniqueID="4_48" Name-en="TableType_48" Name-de="TableType_48" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_49" UniqueID="3_49" Name-en="TableSource_49" Name-de="TableSource_49" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_49" UniqueID="4_49" Name-en="TableType_49" Name-de="TableType_49" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_50" UniqueID="3_50" Name-en="TableSource_50" Name-de="TableSource_50" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_50" UniqueID="4_50" Name-en="TableType_50" Name-de="TableType_50" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_51" UniqueID="3_51" Name-en="TableSource_51" Name-de="TableSource_51" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_51" UniqueID="4_51" Name-en="TableType_51" Name-de="TableType_51" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_52" UniqueID="3_52" Name-en="TableSource_52" Name-de="TableSource_52" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_52" UniqueID="4_52" Name-en="TableType_52" Name-de="TableType_52" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_53" UniqueID="3_53" Name-en="TableSource_53" Name-de="TableSource_53" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_53" UniqueID="4_53" Name-en="TableType_53" Name-de="TableType_53" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_54" UniqueID="3_54" Name-en="TableSource_54" Name-de="TableSource_54" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_54" UniqueID="4_54" Name-en="TableType_54" Name-de="TableType_54" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_55" UniqueID="3_55" Name-en="TableSource_55" Name-de="TableSource_55" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_55" UniqueID="4_55" Name-en="TableType_55" Name-de="TableType_55" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_56" UniqueID="3_56" Name-en="TableSource_56" Name-de="TableSource_56" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_56" UniqueID="4_56" Name-en="TableType_56" Name-de="TableType_56" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_57" UniqueID="3_57" Name-en="TableSource_57" Name-de="TableSource_57" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_57" UniqueID="4_57" Name-en="TableType_57" Name-de="TableType_57" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_58" UniqueID="3_58" Name-en="TableSource_58" Name-de="TableSource_58" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_58" UniqueID="4_58" Name-en="TableType_58" Name-de="TableType_58" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_59" UniqueID="3_59" Name-en="TableSource_59" Name-de="TableSource_59" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_59" UniqueID="4_59" Name-en="TableType_59" Name-de="TableType_59" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_60" UniqueID="3_60" Name-en="TableSource_60" Name-de="TableSource_60" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_60" UniqueID="4_60" Name-en="TableType_60" Name-de="TableType_60" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_61" UniqueID="3_61" Name-en="TableSource_61" Name-de="TableSource_61" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_61" UniqueID="4_61" Name-en="TableType_61" Name-de="TableType_61" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_62" UniqueID="3_62" Name-en="TableSource_62" Name-de="TableSource_62" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_62" UniqueID="4_62" Name-en="TableType_62" Name-de="TableType_62" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_63" UniqueID="3_63" Name-en="TableSource_63" Name-de="TableSource_63" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_63" UniqueID="4_63" Name-en="TableType_63" Name-de="TableType_63" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_64" UniqueID="3_64" Name-en="TableSource_64" Name-de="TableSource_64" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_64" UniqueID="4_64" Name-en="TableType_64" Name-de="TableType_64" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_65" UniqueID="3_65" Name-en="TableSource_65" Name-de="TableSource_65" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_65" UniqueID="4_65" Name-en="TableType_65" Name-de="TableType_65" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_66" UniqueID="3_66" Name-en="TableSource_66" Name-de="TableSource_66" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_66" UniqueID="4_66" Name-en="TableType_66" Name-de="TableType_66" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_67" UniqueID="3_67" Name-en="TableSource_67" Name-de="TableSource_67" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_67" UniqueID="4_67" Name-en="TableType_67" Name-de="TableType_67" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_68" UniqueID="3_68" Name-en="TableSource_68" Name-de="TableSource_68" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_68" UniqueID="4_68" Name-en="TableType_68" Name-de="TableType_68" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_69" UniqueID="3_69" Name-en="TableSource_69" Name-de="TableSource_69" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_69" UniqueID="4_69" Name-en="TableType_69" Name-de="TableType_69" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_70" UniqueID="3_70" Name-en="TableSource_70" Name-de="TableSource_70" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_70" UniqueID="4_70" Name-en="TableType_70" Name-de="TableType_70" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_71" UniqueID="3_71" Name-en="TableSource_71" Name-de="TableSource_71" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_71" UniqueID="4_71" Name-en="TableType_71" Name-de="TableType_71" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_72" UniqueID="3_72" Name-en="TableSource_72" Name-de="TableSource_72" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_72" UniqueID="4_72" Name-en="TableType_72" Name-de="TableType_72" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_73" UniqueID="3_73" Name-en="TableSource_73" Name-de="TableSource_73" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_73" UniqueID="4_73" Name-en="TableType_73" Name-de="TableType_73" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_74" UniqueID="3_74" Name-en="TableSource_74" Name-de="TableSource_74" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_74" UniqueID="4_74" Name-en="TableType_74" Name-de="TableType_74" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_75" UniqueID="3_75" Name-en="TableSource_75" Name-de="TableSource_75" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_75" UniqueID="4_75" Name-en="TableType_75" Name-de="TableType_75" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_76" UniqueID="3_76" Name-en="TableSource_76" Name-de="TableSource_76" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_76" UniqueID="4_76" Name-en="TableType_76" Name-de="TableType_76" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_77" UniqueID="3_77" Name-en="TableSource_77" Name-de="TableSource_77" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_77" UniqueID="4_77" Name-en="TableType_77" Name-de="TableType_77" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_78" UniqueID="3_78" Name-en="TableSource_78" Name-de="TableSource_78" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_78" UniqueID="4_78" Name-en="TableType_78" Name-de="TableType_78" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_79" UniqueID="3_79" Name-en="TableSource_79" Name-de="TableSource_79" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_79" UniqueID="4_79" Name-en="TableType_79" Name-de="TableType_79" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_80" UniqueID="3_80" Name-en="TableSource_80" Name-de="TableSource_80" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_80" UniqueID="4_80" Name-en="TableType_80" Name-de="TableType_80" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_81" UniqueID="3_81" Name-en="TableSource_81" Name-de="TableSource_81" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_81" UniqueID="4_81" Name-en="TableType_81" Name-de="TableType_81" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_82" UniqueID="3_82" Name-en="TableSource_82" Name-de="TableSource_82" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_82" UniqueID="4_82" Name-en="TableType_82" Name-de="TableType_82" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_83" UniqueID="3_83" Name-en="TableSource_83" Name-de="TableSource_83" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_83" UniqueID="4_83" Name-en="TableType_83" Name-de="TableType_83" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_84" UniqueID="3_84" Name-en="TableSource_84" Name-de="TableSource_84" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_84" UniqueID="4_84" Name-en="TableType_84" Name-de="TableType_84" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_85" UniqueID="3_85" Name-en="TableSource_85" Name-de="TableSource_85" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_85" UniqueID="4_85" Name-en="TableType_85" Name-de="TableType_85" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_86" UniqueID="3_86" Name-en="TableSource_86" Name-de="TableSource_86" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_86" UniqueID="4_86" Name-en="TableType_86" Name-de="TableType_86" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_87" UniqueID="3_87" Name-en="TableSource_87" Name-de="TableSource_87" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_87" UniqueID="4_87" Name-en="TableType_87" Name-de="TableType_87" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_88" UniqueID="3_88" Name-en="TableSource_88" Name-de="TableSource_88" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_88" UniqueID="4_88" Name-en="TableType_88" Name-de="TableType_88" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_89" UniqueID="3_89" Name-en="TableSource_89" Name-de="TableSource_89" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_89" UniqueID="4_89" Name-en="TableType_89" Name-de="TableType_89" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_90" UniqueID="3_90" Name-en="TableSource_90" Name-de="TableSource_90" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_90" UniqueID="4_90" Name-en="TableType_90" Name-de="TableType_90" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_91" UniqueID="3_91" Name-en="TableSource_91" Name-de="TableSource_91" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_91" UniqueID="4_91" Name-en="TableType_91" Name-de="TableType_91" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_92" UniqueID="3_92" Name-en="TableSource_92" Name-de="TableSource_92" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_92" UniqueID="4_92" Name-en="TableType_92" Name-de="TableType_92" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_93" UniqueID="3_93" Name-en="TableSource_93" Name-de="TableSource_93" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_93" UniqueID="4_93" Name-en="TableType_93" Name-de="TableType_93" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_94" UniqueID="3_94" Name-en="TableSource_94" Name-de="TableSource_94" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_94" UniqueID="4_94" Name-en="TableType_94" Name-de="TableType_94" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_95" UniqueID="3_95" Name-en="TableSource_95" Name-de="TableSource_95" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_95" UniqueID="4_95" Name-en="TableType_95" Name-de="TableType_95" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_96" UniqueID="3_96" Name-en="TableSource_96" Name-de="TableSource_96" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_96" UniqueID="4_96" Name-en="TableType_96" Name-de="TableType_96" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_97" UniqueID="3_97" Name-en="TableSource_97" Name-de="TableSource_97" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_97" UniqueID="4_97" Name-en="TableType_97" Name-de="TableType_97" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_98" UniqueID="3_98" Name-en="TableSource_98" Name-de="TableSource_98" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_98" UniqueID="4_98" Name-en="TableType_98" Name-de="TableType_98" Value="65" Template="TableTypes" />
+      <Parameter ID="TableSource_99" UniqueID="3_99" Name-en="TableSource_99" Name-de="TableSource_99" Value="0" Template="TableSources" />
+      <Parameter ID="TableType_99" UniqueID="4_99" Name-en="TableType_99" Name-de="TableType_99" Value="65" Template="TableTypes" />
     </Group>
     <Channel ID="BOOL1" Repeat="99" Direction="IN" Type="BOOL" Group="CPU_SafeLOGIC" Digits="2" Active="8" />
     <Channel ID="BOOLext1" Repeat="256" Direction="IN" Type="BOOL" Group="CPU_SafeLOGIC" Digits="3" Active="0" />
@@ -111,6 +321,8 @@
     <Channel ID="SafeBOOL6" Safe="true" Direction="OUT" Type="BOOL" SL2SLCRC="true" Group="SafeLOGIC_SafeLOGIC" />
     <Channel ID="SafeBOOL7" Safe="true" Direction="OUT" Type="BOOL" SL2SLCRC="true" Group="SafeLOGIC_SafeLOGIC" />
     <Channel ID="SafeBOOL8" Safe="true" Direction="OUT" Type="BOOL" SL2SLCRC="true" Group="SafeLOGIC_SafeLOGIC" />
+    <Table ID="Table" Repeat="99" Group="Table_Objects" Digits="2" />
+    <ExternalMachineOption ID="ExternalMachineOption" Repeat="512" Direction="IN" Active="512" Safe="true" Type="BOOL" Group="ExternalMachineOptionsBIT" Digits="3" />
   </Module>
   <Module ID="SL1.IF1.ST3.SS1" Name="8BVSV2SAFE1-1" Hardware="8BVSV2SAFE1-1" SafeLogicID="1" SafeModuleID="2" HWC_Revision="1.4.0.3" AxisName="gAxis04" FrontFoto="8BVSV2SAFE1-1.front.png" Icon="hw_SafeMC.ico" HWTypeCode="131" HWC_LastEdit="18.1.2013 13:40:34" Description-de="SafeMC Modul" Description-en="SafeMC module" Description-fr="SafeMC module" AdditionalSADR="0" Axis="1" RevisionNumber="1" SDPayLoad="9" TypicalSafeInputSize="12" TypicalSafeOutputSize="4" TypicalInputSize="12" TypicalOutputSize="4" CRC-de="2185637692" CRC-en="2032566615" CRC-fr="2478756117" CRC-data="3103411369" CRC-default="2401374740" SafeIN="31" SafeOUT="17" FromSafetyRelease="1.4">
     <Template ID="OptChoice" Type="USINT">
