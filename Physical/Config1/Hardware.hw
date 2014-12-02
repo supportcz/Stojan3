@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?AutomationStudio Version=4.0.17.85 SP?>
+<?AutomationStudio Version=4.0.20.56 SP?>
 <Hardware xmlns="http://br-automation.co.at/AS/Hardware">
   <Module Name="5PP520.1043-00" Type="5PP520.1043-00" Version="2.0.1.2">
     <Connector Name="IF3">
       <Parameter ID="ActivateDevice" Value="1" />
     </Connector>
   </Module>
-  <Module Name="5PP5CP_US15_02" Type="5PP5CP.US15-02" Version="2.0.3.2">
+  <Module Name="5PP5CP_US15_02" Type="5PP5CP.US15-02" Version="2.0.5.0">
     <Connection Connector="SY" TargetModule="5PP520.1043-00" TargetConnector="SY1" />
     <Parameter ID="TimerDeviceType" Value="EPLX2X" />
     <Parameter ID="TimerDevice" Value="5PP5IF.FPLM-00.IF1" />
@@ -27,10 +27,11 @@
     <Parameter ID="Cyclic7Tolerance" Value="1000000" />
     <Parameter ID="Cyclic8Duration" Value="10000" />
     <Parameter ID="Cyclic8Tolerance" Value="30000000" />
+    <Parameter ID="EthernetHostName" Value="stojan3" />
     <Parameter ID="Temp.ProjectDirectory" Value="C:\Work\BaR\Stojan3\" />
     <Parameter ID="Temp.ConfigurationName" Value="Config1" />
   </Module>
-  <Module Name="5PP5IF.FPLM-00" Type="5PP5IF.FPLM-00" Version="2.2.0.0">
+  <Module Name="5PP5IF.FPLM-00" Type="5PP5IF.FPLM-00" Version="2.3.0.0">
     <Connection Connector="SL" TargetModule="5PP520.1043-00" TargetConnector="SL1" />
   </Module>
   <Module Name="8BAC0120.000-1" Type="8BAC0120.000-1" Version="1.0.0.2">
@@ -39,13 +40,11 @@
   <Module Name="8BAC0120.000-1a" Type="8BAC0120.000-1" Version="1.0.0.2">
     <Connection Connector="SS" TargetModule="8BVI0014HCD0.000-1" TargetConnector="SS2" />
   </Module>
-  <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" Version="1.0.0.1">
+  <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" Version="1.0.0.2">
     <Connection Connector="PLK1" TargetModule="8BVP0220HC00.000-1" TargetConnector="PLK2" NodeNumber="2" />
-    <Parameter ID="SupplyVoltage" Value="500" />
   </Module>
-  <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" Version="1.0.0.1">
+  <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" Version="1.0.0.2">
     <Connection Connector="PLK1" TargetModule="8BVI0014HCD0.000-1" TargetConnector="PLK2" NodeNumber="3" />
-    <Parameter ID="SupplyVoltage" Value="500" />
     <Parameter ID="BothEndSwitchesAreNormallyOpen_r1" Value="on" />
     <Parameter ID="QuickStopIsNormallyOpen_r1" Value="on" />
   </Module>
@@ -61,10 +60,14 @@
     <Connection Connector="EC" TargetModule="8BVSV2SAFE1-1" TargetConnector="EC" />
     <Connection Connector="MT" TargetModule="8BVI0014HCSS.000-1" TargetConnector="MT1" />
   </Module>
+  <Module Name="8LSA35.EA030D000-0" Type="8LSA35.EA030D000-0" Version="1.0.1.40">
+    <Connection Connector="EC" TargetModule="8BAC0120.000-1" TargetConnector="EC" />
+    <Connection Connector="MT" TargetModule="8BVI0014HCD0.000-1" TargetConnector="MT1" />
+  </Module>
   <Module Name="X20MK0201" Type="X20MK0201" Version="1.0.0.0">
     <Connection Connector="SL" TargetModule="X20SL8010" TargetConnector="SL1" />
   </Module>
-  <Module Name="X20SL8010" Type="X20SL8010" Version="1.6.3.0">
+  <Module Name="X20SL8010" Type="X20SL8010" Version="1.6.4.0">
     <Connection Connector="PLK1" TargetModule="8BVI0014HCSS.000-1" TargetConnector="PLK2" NodeNumber="4" />
     <Connection Connector="SS1" TargetModule="X20TB52" TargetConnector="SS" />
     <Parameter ID="SafeProject" Value="SafeLOGIC-1" />

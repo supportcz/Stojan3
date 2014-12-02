@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?AutomationStudio Version=4.0.17.85 SP?>
-<BusConfiguration Version="4.0" ARVersion="G4.06" SafetyRelease="1.6" Communication="/IF=tcpip /LOPO=11159 /SA=1 /AM=* /DAIP=10.42.10.126 /REPO=11159 /ANSL=1 /PORT=50000">
-  <Module ID="SL1.IF1.ST4" Name="X20SL8010" Hardware="X20SL8010" SafeLogicID="1" SafeModuleID="1" HWC_Revision="1.6.3.0" FrontFoto="X20SL8010.front.png" Icon="hw_x20sl.ico" HWTypeCode="5" HWC_LastEdit="19.2.2014 12:29:24" ProjectSL="1" Description-de="X20 SafeLOGIC, POWERLINK V2, SafeMC" Description-en="X20 SafeLOGIC, POWERLINK V2, SafeMC" AdditionalSADR="20" CommissioningLocal="1" PasswordSupport="true" FunctionMode="3" TypicalSafeInputSize="1" TypicalSafeOutputSize="1" TypicalInputSize="132" TypicalOutputSize="132" CRC-de="570432085" CRC-en="852658896" CRC-fr="3081900840" CRC-data="2535429177" CRC-default="2333503117" FromSafetyRelease="1.6" ToSafetyRelease="1.6">
+<?AutomationStudio Version=4.0.20.56 SP?>
+<BusConfiguration Version="4.0" ARVersion="G4.06" SafetyRelease="1.6" Communication="/IF=tcpip /LOPO=11159 /SA=1 /AM=* /DAIP=10.42.10.110 /REPO=11159 /ANSL=1 /PORT=50000">
+  <Module ID="SL1.IF1.ST4" Name="X20SL8010" Hardware="X20SL8010" SafeLogicID="1" SafeModuleID="1" HWC_Revision="1.6.4.0" FrontFoto="X20SL8010.front.png" Icon="hw_x20sl.ico" HWTypeCode="5" HWC_LastEdit="26.5.2014 13:17:52" ProjectSL="1" Description-de="X20 SafeLOGIC, POWERLINK V2, SafeMC" Description-en="X20 SafeLOGIC, POWERLINK V2, SafeMC" AdditionalSADR="20" CommissioningLocal="1" PasswordSupport="true" FunctionMode="3" TypicalSafeInputSize="1" TypicalSafeOutputSize="1" TypicalInputSize="132" TypicalOutputSize="132" CRC-de="570432085" CRC-en="852658896" CRC-fr="3081900840" CRC-data="2535429177" CRC-default="2333503117" FromSafetyRelease="1.6" ToSafetyRelease="1.6">
     <Template ID="TableSources" Type="UDINT">
       <Parameter ID="0" Name-en="NOT used" Name-de="NICHT verwendet" Name-fr="inutilisée" />
       <Parameter ID="1" Name-en="SafeDESIGNER download" Name-de="Download über SafeDESIGNER" Name-fr="SafeDESIGNER téléchargement" />

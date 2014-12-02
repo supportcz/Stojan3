@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <BR.AS.HardwareTopology Version="0.0.0.1">
   <Modules>
-    <Module Name="5PP520.1043-00" Type="5PP520.1043-00" X="294" Y="-180" />
-    <Module Name="5PP5IF.FPLM-00" Type="5PP5IF.FPLM-00" X="488.099976" Y="-147" />
-    <Module Name="5PP5CP_US15_02" Type="5PP5CP.US15-02" X="488.099976" Y="-170" />
-    <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" X="691" Y="-147" />
-    <Module Name="8BAC0120.000-1a" Type="8BAC0120.000-1" X="710.6" Y="28" />
-    <Module Name="8BAC0120.000-1" Type="8BAC0120.000-1" X="693.8" Y="28" />
-    <Module Name="8BVP0220HC00.000-1" Type="8BVP0220HC00.000-1" X="617" Y="-147" />
-    <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" X="731" Y="-146" />
-    <Module Name="8BVSV2SAFE1-1" Type="8BVSV2SAFE1-1" X="733.8" Y="29" />
-    <Module Name="8LSA34.S1060C000-0" Type="8LSA34.S1060C000-0" X="698" Y="107" />
-    <Module Name="X20SL8010" Type="X20SL8010" X="788" Y="-148" />
-    <Module Name="X20TB52" Type="X20TB52" X="862" Y="-121" />
-    <Module Name="X20MK0201" Type="X20MK0201" X="815" Y="-78" />
+    <Module Name="5PP520.1043-00" Type="5PP520.1043-00" X="294" Y="-460" />
+    <Module Name="5PP5IF.FPLM-00" Type="5PP5IF.FPLM-00" X="488.099976" Y="-427" />
+    <Module Name="5PP5CP_US15_02" Type="5PP5CP.US15-02" X="488.099976" Y="-450" />
+    <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" X="648" Y="-180" />
+    <Module Name="8BAC0120.000-1a" Type="8BAC0120.000-1" X="667.6" Y="-5" />
+    <Module Name="8BAC0120.000-1" Type="8BAC0120.000-1" X="650.8" Y="-5" />
+    <Module Name="8BVP0220HC00.000-1" Type="8BVP0220HC00.000-1" X="553.1" Y="-180" />
+    <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" X="738" Y="-180" />
+    <Module Name="8BVSV2SAFE1-1" Type="8BVSV2SAFE1-1" X="740.8" Y="-5" />
+    <Module Name="8LSA34.S1060C000-0" Type="8LSA34.S1060C000-0" X="738" Y="61.8999939" />
+    <Module Name="X20SL8010" Type="X20SL8010" X="828" Y="-180" />
+    <Module Name="X20TB52" Type="X20TB52" X="902" Y="-153" />
+    <Module Name="X20MK0201" Type="X20MK0201" X="855" Y="-110" />
+    <Module Name="8LSA35.EA030D000-0" Type="8LSA35.EA030D000-0" X="648" Y="61.8999939" />
   </Modules>
   <Links />
 </BR.AS.HardwareTopology>

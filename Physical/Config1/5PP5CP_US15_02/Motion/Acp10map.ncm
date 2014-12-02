@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?AutomationStudio Version=4.0.17.85 SP?>
+<?AutomationStudio Version=4.0.20.56 SP?>
 <NcMapping NcSwId="Acp10">
   <NcObject Name="8BVI0014HCD0.000-1_ncV_AXIS1" ModuleId="8BVI0014HCD0.000-1" Type="ncV_AXIS" Channel="1" Disabled="TRUE" ModuleDisabled="FALSE" />
   <NcObject Name="8BVI0014HCD0.000-1_ncV_AXIS2" ModuleId="8BVI0014HCD0.000-1" Type="ncV_AXIS" Channel="2" Disabled="TRUE" ModuleDisabled="FALSE" />
@@ -10,7 +10,7 @@
   <NcObject Name="8BVP0220HC00.000-1_ncV_AXIS1" ModuleId="8BVP0220HC00.000-1" Type="ncV_AXIS" Channel="1" Disabled="TRUE" ModuleDisabled="FALSE" />
   <NcObject Name="8BVP0220HC00.000-1_ncV_AXIS2" ModuleId="8BVP0220HC00.000-1" Type="ncV_AXIS" Channel="2" Disabled="TRUE" ModuleDisabled="FALSE" />
   <NcObject Name="gAxis01" ModuleId="8BVP0220HC00.000-1" Type="ncAXIS" Channel="1" AcoposSimulation="Off" InitParameter="gAxis01i" AcoposParameter="gAxis01a" Disabled="FALSE" ModuleDisabled="FALSE" />
-  <NcObject Name="gAxis02" ModuleId="8BVI0014HCD0.000-1" Type="ncAXIS" Channel="1" AcoposSimulation="Complete" InitParameter="gAxis02i" AcoposParameter="gAxis02a" Disabled="FALSE" ModuleDisabled="FALSE" />
-  <NcObject Name="gAxis03" ModuleId="8BVI0014HCD0.000-1" Type="ncAXIS" Channel="2" AcoposSimulation="Complete" InitParameter="gAxis03i" AcoposParameter="gAxis03a" Disabled="FALSE" ModuleDisabled="FALSE" />
+  <NcObject Name="gAxis02" ModuleId="8BVI0014HCD0.000-1" Type="ncAXIS" Channel="1" AcoposSimulation="Off" InitParameter="gAxis02i" AcoposParameter="gAxis02a" Disabled="FALSE" ModuleDisabled="FALSE" />
+  <NcObject Name="gAxis03" ModuleId="8BVI0014HCD0.000-1" Type="ncAXIS" Channel="2" AcoposSimulation="Off" InitParameter="gAxis03i" AcoposParameter="gAxis03a" Disabled="FALSE" ModuleDisabled="FALSE" />
   <NcObject Name="gAxis04" ModuleId="8BVI0014HCSS.000-1" Type="ncAXIS" Channel="1" AcoposSimulation="Off" InitParameter="gAxis04i" AcoposParameter="gAxis04a" Disabled="FALSE" ModuleDisabled="FALSE" />
 </NcMapping>
