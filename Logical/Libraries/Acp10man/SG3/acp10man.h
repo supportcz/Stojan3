@@ -2,7 +2,7 @@
 *                    B & R   P O S I T I O N I N G                          *
 *****************************************************************************
 *                                                                           *
-*            Header File for Library ACP10MAN (Version 2422)                * 
+*            Header File for Library ACP10MAN (Version 2471)                * 
 *                                                                           *
 **************************** COPYRIGHT (C) **********************************
 *     THIS SOFTWARE IS THE PROPERTY OF B&R AUSTRIA: ALL RIGHTS RESERVED.    *
@@ -11,7 +11,7 @@
 ****************************************************************************/
 
 #ifndef ACP10MAN_H_VERSION 
-#define ACP10MAN_H_VERSION 0x2422 
+#define ACP10MAN_H_VERSION 0x2471 
 
 #include <ncglobal.h>
 #include <acp10par.h>
@@ -459,6 +459,7 @@ typedef struct ACP10SUMAP_typ {               /* Parameters */
    REAL               v_n;                    /* Rated speed */
    REAL               f_n;                    /* Rated frequency */
    REAL               cos_phi;                /* Active power factor */
+   REAL               t_tripping_therm;       /* Tripping time at thermal overload */
    ACP10SUMAO_typ     optional;               /* Optional parameters */
 } ACP10SUMAP_typ;
 
@@ -498,6 +499,7 @@ typedef struct ACP10SUMSP_typ {               /* Parameters */
    REAL               trq_n;                  /* Rated torque */
    REAL               trq_max;                /* Peak  torque */
    REAL               i_max;                  /* Peak current */
+   REAL               t_tripping_therm;       /* Tripping time at thermal overload */
    ACP10SUMSO_typ     optional;               /* Optional parameters */
 } ACP10SUMSP_typ;
 
@@ -537,12 +539,13 @@ typedef struct ACP10SUCST_typ {               /* Status */
 typedef struct ACP10SUCPA_typ {               /* Parameters */
    UINT               mode;                   /* Mode */
    USINT              orientation;            /* Orientation */
-   USINT              reserve;                /* Reserved */
+   USINT              operating_point;        /* Operating point */
    REAL               i_max_percent;          /* Maximum percentage for rated current */
    REAL               v_max_percent;          /* Maximum percentage for speed */
    DINT               s_max;                  /* Maximum move distance */
    REAL               ds_max;                 /* Maximum lag error */
    REAL               kv_percent;             /* Percentage for proportional amplification */
+   UDINT              signal_order;           /* Order of excitation signal */
 } ACP10SUCPA_typ;
 
 typedef struct ACP10SUCTR_typ {               /* Controller */
@@ -628,10 +631,17 @@ typedef struct ACP10MSTXT_typ {               /* Text determination for current 
    ACP10MTXPA_typ     parameter;              /* Parameters */
 } ACP10MSTXT_typ;
 
+typedef struct ACP10MSCMDERR_typ {            /* Command: Execute error reaction */
+   UINT               type;                   /* Type */
+   USINT              ok;                     /* Operation complete */
+   USINT              error;                  /* Error */
+} ACP10MSCMDERR_typ;
+
 typedef struct ACP10MSG_typ {                 /* Messages */
    ACP10MSCNT_typ     count;                  /* Count of not acknowledged messages */
    ACP10MSREC_typ     record;                 /* Error record */
    ACP10MSTXT_typ     text;                   /* Text determination for current message record */
+   ACP10MSCMDERR_typ  cmd_error;              /* Command: Execute error reaction */
 } ACP10MSG_typ;
 
 typedef struct ACP10NCTST_typ {               /* NC Test */
@@ -1070,7 +1080,7 @@ typedef struct ACP10_HWINFO_typ {             /* ACOPOS Hardware Information */
    UINT               reserve2;               /* Reserved */
    ACP10_HWIDRIVE_typ drive;                  /* Drive */
    ACP10_HWICARD_typ  card[4];                /* Plug-in card */
-   ACP10_HWIMOTOR_typ motor[2];               /* Motor */
+   ACP10_HWIMOTOR_typ motor[3];               /* Motor */
 } ACP10_HWINFO_typ;
 
 typedef struct ACP10TYPES_typ {               /* Data structure for additional data types */
@@ -1221,6 +1231,19 @@ typedef struct ACP10VAMOV_typ {               /* Movement */
    ACP10BAMOV_typ     basis;                  /* Basis state */
 } ACP10VAMOV_typ;
 
+typedef struct ACP10VAMSCMDE_typ {            /* Command: Execute error reaction */
+   UINT               type;                   /* Type */
+   USINT              ok;                     /* Operation complete */
+   USINT              error;                  /* Error */
+} ACP10VAMSCMDE_typ;
+
+typedef struct ACP10VAMSG_typ {               /* Messages */
+   ACP10MSCNT_typ     count;                  /* Count */
+   ACP10MSREC_typ     record;                 /* Error record */
+   ACP10MSTXT_typ     text;                   /* Error text */
+   ACP10VAMSCMDE_typ  cmd_error;              /* Command: Execute error reaction */
+} ACP10VAMSG_typ;
+
 typedef struct ACP10VAXIS_typ {               /* ACP10 - Virtual Axis */
    USINT              NOT_USE_1[4];
    UINT               size;                   /* Size of the corresponding NC manager data type */
@@ -1238,7 +1261,7 @@ typedef struct ACP10VAXIS_typ {               /* ACP10 - Virtual Axis */
    ACP10VAMOV_typ     move;                   /* Movement */
    ACP10SETUP_typ     setup;                  /* Setup */
    ACP10AXMON_typ     monitor;                /* Monitor */
-   ACP10MSG_typ       message;                /* Messages (errors, warnings) */
+   ACP10VAMSG_typ     message;                /* Messages (errors, warnings) */
    ACP10NCTST_typ     nc_test;                /* NC Test */
    USINT              NOT_USE_3[60];
 } ACP10VAXIS_typ;

@@ -1,6 +1,7 @@
 VAR CONSTANT
 	mc5TH_ORDER_POLYNOMIAL : UINT := 4; (*motion rule*)
 	mcABOVE_WINDOW : USINT := 40; (*trigger event mode*)
+	mcABS : USINT := 1; (*encoder type*)
 	mcABSOLUTE : USINT := 0; (*start mode*)
 	mcABSOLUTE_NO_RESET : USINT := 2; (*definition for the shift input of MC_BR_Offset and MC_BR_Phasing*)
 	mcACKNOWLEDGE_ALL : UINT := 2; (*acknowledge all error records immediately*)
@@ -17,6 +18,7 @@ VAR CONSTANT
 	mcAVERAGE_WEIGHTED : UINT := 4;
 	mcAXIS_ERROR : USINT := 0;
 	mcAXIS_FACTOR : INT := 1007; (*PLCopen motion parameter*)
+	mcAXIS_NETWORK_CYCLE_TIME: INT := 1018; (*PLCopen motion parameter*)
 	mcAXIS_PERIOD : INT := 1008; (*PLCopen motion parameter*)
 	mcAXIS_WARNING : USINT := 1;
 	mcBASIS_PARAMETERS : REAL := 2.0; (*Option for DefaultMoveParameter*)
@@ -32,6 +34,11 @@ VAR CONSTANT
 	mcCHECK : UINT := 1; (*mode for automat compensation check*)
 	mcCHECK_HOMING_OFF : USINT := 1; (*disable homing check*)
 	mcCLOSE : USINT := 0;
+	mcCMD_ERROR : UINT := 1; (*error command*)
+	mcCMD_ERROR_STOP : UINT := 2; (*error command*)
+	mcCMD_ERROR_STOP_CTRL_OFF : UINT := 3; (*error command*)
+	mcCMD_ERROR_V_STOP_CTRL_OFF : UINT := 4; (*error command*)
+	mcCMD_WARNING : UINT := 0; (*error command *)
 	mcCOMMANDED_POSITION : INT := 1; (*PLCopen motion parameter*)
 	mcCOMMANDED_VELOCITY : INT := 11; (*PLCopen motion parameter*)
 	mcCONTINUE_CONTROLLER_OFF : UINT := 128; (* continue if controller is off *)
@@ -46,6 +53,7 @@ VAR CONSTANT
 	mcDISTANCE_BASED : UINT := 0; (*basis for cam movement (e.g. for MC_BR_CamTransition)*)
 	mcDITHER : USINT := 32; (*setup mode*)
 	mcEDGE_SENSITIVE : USINT := 4; (*additional mode for trigger event*)
+	mcENABLE : UINT := 2;
 	mcENABLE_LIMIT_NEG : INT := 5; (*PLCopen motion parameter*)
 	mcENABLE_LIMIT_POS : INT := 4; (*PLCopen motion parameter*)
 	mcENABLE_POS_LAG_MONITORING : INT := 6; (*PLCopen motion parameter*)
@@ -89,8 +97,12 @@ VAR CONSTANT
 	mcIDENTIFICATION : UINT := 10; (*setup mode *)
 	mcIMMEDIATE : UINT := 0; (*mode for MC_BR_RegMarkCalc001, StartMode for MC_BR_CrossCutterControl, *)
 	mcIN_WINDOW : USINT := 20; (*trigger event mode*)
+	mcINC : USINT := 2; (*encoder type*)
+	mcINC_ABS : USINT := 4; (*encoder type*)
+	mcINC_REF : USINT := 3; (*encoder type*)
 	mcINCLINED_SINE_CURVE : UINT := 5; (*motion rule*)
 	mcINTERVAL_EVENT : UINT := 16;
+    mcINVERSE : USINT := 255; (*encoder count direction*)
 	mcIPL_LINEAR : USINT := 1; (*interpolation mode*)
 	mcIPL_OFF : USINT := 0; (*interpolation mode*)
 	mcIPL_QUADRATIC : USINT := 2; (*interpolation mode*)
@@ -111,6 +123,7 @@ VAR CONSTANT
 	mcLOAD : UINT := 276; (*trace command*)
 	mcMANUAL_SEARCH : UINT := 64;
 	mcMASTER_DISTANCE_BASED : UINT := 3; (*basis for movement profile (e.g. for MC_BR_Offset or MC_BR_Phasing)*)
+    mcMASTER_INTERVAL : USINT := 0; (*start mode*)
 	mcMASTER_POSITION : UINT := 256; (*additional basis for movement profile (e.g. for MC_BR_Offset), StartMode for MC_BR_CrossCutterControl*)
 	mcMASTER_POSITION_BASED : UINT := 2; (*basis for movement profile (e.g. for MC_BR_Offset or MC_BR_Phasing)*)
 	mcMAX_ACCELERATION_APPL : INT := 13; (*PLCopen motion parameter*)
@@ -143,6 +156,7 @@ VAR CONSTANT
 	mcN_EDGE : USINT := 1;
 	mcNEGATIVE_DIR : USINT := 1; (*movement direction*)
 	mcNET_TRACE_GLOBAL : UDINT := 0; (*network trace type*)
+	mcNETWORK_CYCLE_TIME: INT := 1017; (*PLCopen motion parameter*)
 	mcNO_CHANGE_COMP : USINT := 2;
 	mcNO_EVENTS : USINT := 253; (*event index*)
 	mcNO_STATES : USINT := 253;
@@ -194,6 +208,7 @@ VAR CONSTANT
 	mcSLOW_DOWN : USINT := 5; (*synchronization mode*)
 	mcSMALLER : UINT := 1;
 	mcSPEED : USINT := 2; (*setup mode*)
+    mcSTANDARD : USINT := 0; (*encoder count direction*)
 	mcSTART : UINT := 260;
 	mcSTART_ONLY : USINT := 3; (*power evaluation mode*)
 	mcSTEPPER : USINT := 31; (*setup mode*)
@@ -223,6 +238,8 @@ VAR CONSTANT
 	mcTRACE_TRIGGER : USINT := 3; (*trace status*)
 	mcTRANSITION_OFF : UINT := 0;
 	mcTRANSITION_ON : UINT := 1;
+	mcTUNE_STANDSTILL : USINT := 0; (*constant for OperatingPoint*)
+	mcTUNE_V_CONSTANT : USINT := 1; (*constant for OperatingPoint*)
 	mcUNEQUAL : UINT := 5;
 	mcUPDATE_PERIOD : UINT := 16#8000; (*input for MC_BR_TouchProbe*)
 	mcUSE_AXIS_PERIOD : UINT := 16#4000; (*input for MC_BR_TouchProbe*)

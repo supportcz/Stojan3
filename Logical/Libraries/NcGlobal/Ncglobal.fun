@@ -3,7 +3,7 @@ FUNCTION nccnccom : UINT (* CNC-PLC-Communication *)
 		nc_object	:UDINT;
 	END_VAR
 END_FUNCTION
-FUNCTION ncda_dir : UINT (* Create an Directory of NC Data Modules *)
+FUNCTION ncda_dir : UINT (* Create a Directory of NC Data Modules *)
 	VAR_INPUT
 		mo_typ	:USINT;
 		name_p	:UDINT;

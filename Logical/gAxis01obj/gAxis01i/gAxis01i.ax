@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<InitParameter Version="2.42.2" NcSwId="ACP10">
+<InitParameter Version="2.47.1" NcSwId="ACP10">
   <Group ID="ACP10AXIS_typ">
     <Group ID="dig_in">
       <Group ID="level">

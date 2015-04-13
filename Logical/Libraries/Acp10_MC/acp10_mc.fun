@@ -359,6 +359,42 @@ FUNCTION_BLOCK MC_BR_CalcSectionsFromCam (*calculates the sections from a cam pr
 	END_VAR
 END_FUNCTION_BLOCK
 
+FUNCTION_BLOCK MC_BR_CamIn (*starts a cam profile link between the master and the slave axis*)
+	VAR_INPUT
+		Master : UDINT; (*axis reference of the master axis*)
+		Slave : UDINT; (*axis reference of the slave axis*)
+		Enable : BOOL; (*function block is activated*)
+		InitData : BOOL; (*starts transferring the parameters*)
+		CamTableID : USINT; (*ID number of the cam profile*)
+		MasterStartPosition : REAL; (*master position where the cam profile starts*)
+		MasterScaling : DINT; (*factor of the master profile*)
+		SlaveScaling : DINT; (*factor of the slave scaling*)
+		EnterCam : BOOL; (*signal from the control to start the coupling*)
+		ExitCam : BOOL; (*signal from the control to end the coupling*)
+		Restart : BOOL; (*signal from the control to restart the coupling*)
+        AdvancedParameters: MC_ADVANCED_CAM_PAR_REF; (*additional inputs for advanced usage of FB*)
+	END_VAR
+	VAR_OUTPUT
+		Active : BOOL; (*parameters are transferred and FB is active*)
+		Busy : BOOL; (*function block is enabled*)
+		CommandAborted : BOOL; (*function block aborted by another FB*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		DataInitialized : BOOL; (*transferring parameters is completed*)
+		Running : BOOL; (*cam coupling is running*)
+		StandBy : BOOL; (*cam coupling is active in the background*)
+		InLeadIn : BOOL; (*the coupling is within the leadin range*)
+		InCam : BOOL; (*the coupling is within the cam range*)
+		InLeadOut : BOOL; (*the coupling is within the leadout range*)
+		EndOfProfile : BOOL; (*pulsed output signaling the cyclic end of the cam profile*)
+	END_VAR
+	VAR
+		C_Master : UDINT; (*internal variable*)
+		C_Slave : UDINT; (*internal variable*)
+		IS: MC_0146_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
 FUNCTION_BLOCK MC_BR_CamDwell (*starts a cam profile link between the master and the slave axis*)
 	VAR_INPUT
 		Master : UDINT; (*axis reference of the master axis*)
@@ -556,7 +592,7 @@ FUNCTION_BLOCK MC_BR_CamTransition (*starts a cam profile link between the maste
 		LockIDMa : USINT; (*internal variable*)
 		AutActualCamTypeOffset : UINT; (*internal variable*)
 		AutActualCamTypeRecIndex : USINT; (*internal variable*)
-		MasterVelChangePending : BOOL; (*internal variable*)
+		ChangePending : BOOL; (*internal variable*)
 		sendSlot : USINT; (*internal variable*)
 		readSlot : USINT; (*internal variable*)
 		state : USINT; (*internal variable*)
@@ -611,6 +647,24 @@ FUNCTION_BLOCK MC_BR_CheckEndlessPosition (*checks the endless position data for
 	VAR
 		C_Axis : UDINT; (*internal variable*)
 		IS : MC_0130_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_BR_CommandError (*transfers error commands to the drive, where they are entered*)
+	VAR_INPUT
+		Axis  : UDINT; (*axis reference*)
+		Execute : BOOL; (*transfer command at rising edge*)
+		Command : UINT; (*error command*)
+	END_VAR
+	VAR_OUTPUT
+		Done  : BOOL; (*command was successfully transferred *)
+		Busy  : BOOL; (*function block is not finished yet*)
+		Error : BOOL; (*error occured in FB*)
+		ErrorID : UINT; (*error number *)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0140_IS_TYP; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -866,34 +920,36 @@ FUNCTION_BLOCK MC_BR_EventMoveAbsolute (*starts an absolute positioning on the d
 		WaitingForEvent : BOOL; (*waiting for event*)
 	END_VAR
 	VAR
-		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
+		C_Axis : UDINT; (*internal variable*)		
 		C_EventInput : MC_BR_EVINPUT_REF; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
 		C_Position : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
-		C_Direction : USINT; (*internal variable*)
+		C_Deceleration : REAL; (*internal variable*)		
 		C_Mode : UINT; (*internal variable*)
 		C_PositionParID : UINT; (*internal variable*)
 		C_InPosition : BOOL; (*internal variable*)
 		C_WaitingForEvent : BOOL; (*internal variable*)
 		C_Busy : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
-		C_ErrorID : UINT; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)		
+        C_ErrorID : UINT; (*internal variable*)
+        C_Error : BOOL; (*internal variable*)
+        C_Direction : USINT; (*internal variable*)
 		C_CommandedOffset : DINT; (*internal variable*)
 		CmpIndex : UINT; (*internal variable*)
 		VarIndex : UINT; (*internal variable*)
 		EvMoveStatusOffset : UINT; (*internal variable*)
 		EvMoveStatusRecIndex : USINT; (*internal variable*)
-		Reserve : USINT; (*internal variable*)
-		StatusBitDisabled : BOOL; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitEvMoveStatusValid : BOOL; (*internal variable*)
 		C_MoveActive : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		LockID : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		WaitForTelegrams : BOOL; (*internal variable*)
+        oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -919,8 +975,8 @@ FUNCTION_BLOCK MC_BR_EventMoveAdditive (*starts a movement on the drive by a set
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
 		C_EventInput : MC_BR_EVINPUT_REF; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
 		C_Distance : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
@@ -930,22 +986,25 @@ FUNCTION_BLOCK MC_BR_EventMoveAdditive (*starts a movement on the drive by a set
 		C_InPosition : BOOL; (*internal variable*)
 		C_WaitingForEvent : BOOL; (*internal variable*)
 		C_Busy : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
-		C_ErrorID : UINT; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)	
+        C_ErrorID : UINT; (*internal variable*)
+        C_Error : BOOL; (*internal variable*)
+        Reserve : USINT; (*internal variable*)
 		C_CommandedOffset : DINT; (*internal variable*)
 		C_CommandedPosition : DINT; (*internal variable*)
 		CmpIndex : UINT; (*internal variable*)
 		VarIndex : UINT; (*internal variable*)
 		EvMoveStatusOffset : UINT; (*internal variable*)
 		EvMoveStatusRecIndex : USINT; (*internal variable*)
-		Reserve : USINT; (*internal variable*)
-		StatusBitDisabled : BOOL; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitEvMoveStatusValid : BOOL; (*internal variable*)
 		C_MoveActive : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		LockID : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+        WaitForTelegrams : BOOL; (*internal variable*)
+        oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -994,11 +1053,12 @@ FUNCTION_BLOCK MC_BR_EventMoveVelocity (*starts a controlled movement with a spe
 		Reserve1 : USINT; (*internal variable*)
 		VelocityOffset : UINT; (*internal variable*)
 		VelocityRecIndex : USINT; (*internal variable*)
-		Reserve2 : USINT; (*internal variable*)
-		StatusBitDisabled : BOOL; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitEvMoveStatusValid : BOOL; (*internal variable*)
 		C_MoveActive : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		WaitForTelegrams : BOOL; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -1469,6 +1529,25 @@ FUNCTION_BLOCK MC_BR_InitEndlessPosition (*initialize memory for endless positio
 	END_VAR
 END_FUNCTION_BLOCK
 
+FUNCTION_BLOCK MC_BR_InitEndlessPosAcpEnc (*initialize memory for endless position storage for external encoder*)
+	VAR_INPUT
+		AcpEncoder : MC_ACP_ENCOD_REF; (*ACOPOS encoder*)
+		Execute : BOOL; (*initialize memory storage at rising edge*)
+		DataAddress : UDINT; (*data address of memory storage for endless position*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*memory storage for endless position was initialized*)
+		Busy : BOOL; (*function block is not finished*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		DataValid : BOOL; (*axis position can be restored from the endless position data*)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0138_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
 FUNCTION_BLOCK MC_BR_InitMasterParIDTransfer (*initializes a cyclic ParID transfer from master to slave*)
 	VAR_INPUT
 		Master : UDINT; (*axis reference of the master axis*)
@@ -1624,6 +1703,27 @@ FUNCTION_BLOCK MC_BR_InitReceiveNetworkData (*initializes receiving of 4-Byte da
 	VAR
 		C_Axis : UDINT; (*internal variable*)
 		IS : MC_0115_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_BR_InitReceiveNetworkEnc (*initializes receiving of an encoder over the network*)
+	VAR_INPUT
+		Axis : UDINT; (*axis reference*)
+		Execute : BOOL; (*initialize receiving of data at the rising edge*)
+		EncoderInformation : MC_NET_ENC_INFO_REF; (*information about the encoder*)
+		EncoderParameters : MC_NET_ENC_PARAM_REF; (*parameters for the encoder*)
+        ReceiveConfiguration : MC_NET_ENC_CONFIG_REF; (*configuration for processing received encoder values*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*receiving of data initialized*)
+		Busy : BOOL; (*function block is not finished*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		PositionParID : UINT; (*ParID on drive that holds evaluated encoder position*)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0141_IS_TYP; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -1848,16 +1948,17 @@ FUNCTION_BLOCK MC_BR_MoveAbsoluteTriggStop (*starts a movement to specified Posi
 		ErrorID : UINT; (*error number*)
 	END_VAR
 	VAR
-		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
+		C_Axis : UDINT; (*internal variable*)		
 		C_Position : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
-		C_Direction : USINT; (*internal variable*)
+		C_Deceleration : REAL; (*internal variable*)		
 		C_TriggerDistance : DINT; (*internal variable*)
 		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
 		C_ForceTriggerDistance : BOOL; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
+		C_Direction : USINT; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
 		C_CommandAborted : BOOL; (*internal variable*)
 		C_Error : BOOL; (*internal variable*)
@@ -1866,6 +1967,7 @@ FUNCTION_BLOCK MC_BR_MoveAbsoluteTriggStop (*starts a movement to specified Posi
 		state : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -1890,7 +1992,6 @@ FUNCTION_BLOCK MC_BR_MoveAdditiveTriggStop (*starts a movement for the specified
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
 		C_Distance : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
@@ -1898,15 +1999,19 @@ FUNCTION_BLOCK MC_BR_MoveAdditiveTriggStop (*starts a movement for the specified
 		C_TriggerDistance : DINT; (*internal variable*)
 		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
 		C_ForceTriggerDistance : BOOL; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)		
 		C_ErrorID : UINT; (*internal variable*)
-		C_CommandedOffset : DINT; (*internal variable*)
-		C_CommandedPosition : REAL; (*internal variable*)
+		C_Error : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
+		C_CommandedOffset : DINT; (*internal variable*)
+		C_CommandedPosition : REAL; (*internal variable*)		
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		oldMoveID : USINT; (*internal variable*)
+		reserve : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -2024,20 +2129,23 @@ FUNCTION_BLOCK MC_BR_MoveVelocityTriggStop (*starts a movement with specified ve
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
-		C_Velocity : REAL; (*internal variable*)
+		C_Velocity : REAL; (*internal variable*)		
 		C_Acceleration : REAL; (*internal variable*)
 		C_Deceleration : REAL; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
 		C_Direction : USINT; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
 		C_ErrorID : UINT; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)
+		C_Error : BOOL; (*internal variable*)				
 		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
-		C_TriggerDistance : DINT; (*internal variable*)
-		state : USINT; (*internal variable*)
+		state : USINT; (*internal variable*)	
+		C_TriggerDistance : DINT; (*internal variable*)		
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		oldMoveID : USINT; (*internal variable*)
+		reserve : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -2056,6 +2164,24 @@ FUNCTION_BLOCK MC_BR_NetTrace (*controls the network command trace*)
 	END_VAR
 	VAR
 		IS : MC_0078_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_BR_NetworkInit (*controls the network initilization*)
+	VAR_INPUT
+	    Axis : UDINT; (*axis reference*)
+		Execute : BOOL; (*execute command at rising edge*)
+		Command : UINT; (*select the command for the network initialization*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*command executed*)
+		Busy : BOOL; (*function block is not finished*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+	END_VAR
+	VAR
+		C_Object : UDINT; (*internal variable*)
+		IS : MC_0139_IS_TYP; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -2622,6 +2748,27 @@ FUNCTION_BLOCK MC_BR_SetupController (*starts a controller setup and saves the p
 	END_VAR
 END_FUNCTION_BLOCK
 
+FUNCTION_BLOCK MC_BR_SetupFromParTabObj (*starts a setup with parameter from an ACOPOS parameter table*)
+	VAR_INPUT
+		Axis : UDINT; (*axis reference*)
+		Execute : BOOL; (*starts the commanded action at rising edge*)
+		Command : UINT; (*choose the command for the setup*)
+		DataObjectName : STRING[12]; (*name of the ACOPOS parameter table*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*command succesfully completed*)
+		Busy : BOOL; (*function block is not finished*)
+		CommandAborted : BOOL; (*function block is aborted by another command*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		SetupOutput : MC_SETUP_OUTPUT_REF; (*structure for output values*)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0145_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
 FUNCTION_BLOCK MC_BR_SetupInductionMotor (*starts the motorsetup for an induction motor and saves the parameters*)
 	VAR_INPUT
 		Axis : UDINT; (*axis reference*)
@@ -3081,6 +3228,8 @@ FUNCTION_BLOCK MC_GearIn (*commands a ratio between the velocity of the master a
 		MoveID : USINT; (*internal variable*)
 		LockIDSend : USINT; (*internal variable*)
 		LockIDReceive : USINT; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitForTelegrams : BOOL; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -3193,14 +3342,16 @@ FUNCTION_BLOCK MC_Halt (*commands a controlled motion stop*)
 	VAR
 		C_Axis : UDINT; (*internal variable*)
 		C_Execute : BOOL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)		
 		C_Done : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
+        C_CommandAborted : BOOL; (*internal variable*)
+        C_Deceleration : REAL; (*internal variable*)
 		C_ErrorID : UINT; (*internal variable*)
+		C_Error : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
-		LockIDPar : USINT; (*internal variable*)
+        LockIDPar : USINT; (*internal variable*)        
+        Reserve : UINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -3274,19 +3425,21 @@ FUNCTION_BLOCK MC_MoveAbsolute (*commands a controlled motion at a specified abs
 	VAR
 		C_Axis : UDINT; (*internal variable*)
 		C_Execute : BOOL; (*internal variable*)
-		C_Position : DINT; (*internal variable*)
-		C_Velocity : REAL; (*internal variable*)
-		C_Acceleration : REAL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
-		C_Direction : USINT; (*internal variable*)
-		LockIDPar : USINT; (*internal variable*)
-		C_Done : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)	
+        C_Direction : USINT; (*internal variable*)
+        LockIDPar : USINT; (*internal variable*)
+        C_Position : DINT; (*internal variable*)
+        C_Velocity : REAL; (*internal variable*)
+        C_Acceleration : REAL; (*internal variable*)
+        C_Deceleration : REAL; (*internal variable*)
+        C_Done : BOOL; (*internal variable*)
 		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
-		C_ErrorID : UINT; (*internal variable*)
-		C_CommandedOffset : DINT; (*internal variable*)
-		state : USINT; (*internal variable*)
-		MoveID : USINT; (*internal variable*)
+        C_Error : BOOL; (*internal variable*)
+        state : USINT; (*internal variable*)
+        C_CommandedOffset : DINT; (*internal variable*)	
+		C_ErrorID : UINT; (*internal variable*)			
+        MoveID : USINT; (*internal variable*)
+        oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -3308,20 +3461,23 @@ FUNCTION_BLOCK MC_MoveAdditive (*commands a controlled motion of a specified rel
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
 		C_Distance : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
+        C_Deceleration : REAL; (*internal variable*)
+        C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
 		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
-		C_ErrorID : UINT; (*internal variable*)
 		C_CommandedPosition : DINT; (*internal variable*)
-		C_CommandedOffset : DINT; (*internal variable*)
+        C_CommandedOffset : DINT; (*internal variable*)        
+        C_ErrorID : UINT; (*internal variable*)
+        C_Error : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
-		MoveID : USINT; (*internal variable*)
+        MoveID : USINT; (*internal variable*)
+        oldMoveID : USINT; (*internal variable*)
+        Reserve : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -3344,6 +3500,7 @@ FUNCTION_BLOCK MC_MoveVelocity (*commands a motion with specified velocity*)
 	VAR
 		C_Axis : UDINT; (*internal variable*)
 		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
 		C_Deceleration : REAL; (*internal variable*)
@@ -3389,10 +3546,10 @@ FUNCTION_BLOCK MC_Phasing (*creates a phase shift in the master position of a sl
 		MpgenStatusOffset : UINT; (*internal variable*)
 		MpgenStatusRecIndex : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
-		timer : SINT; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
 		state : USINT; (*internal variable*)
 		FbID : USINT; (*internal variable*)
-		Reserve : USINT; (*internal variable*)
+		WaitForTelegrams : BOOL; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -4039,16 +4196,17 @@ FUNCTION_BLOCK MC_005BR_MoveAbsoluteTriggSto (*starts a movement to specified Po
 		ErrorID : UINT; (*error number*)
 	END_VAR
 	VAR
-		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
-		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
+		C_Axis : UDINT; (*internal variable*)		
 		C_Position : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
-		C_Direction : USINT; (*internal variable*)
+		C_Deceleration : REAL; (*internal variable*)		
 		C_TriggerDistance : DINT; (*internal variable*)
+		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
 		C_ForceTriggerDistance : BOOL; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
+		C_Direction : USINT; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
 		C_CommandAborted : BOOL; (*internal variable*)
 		C_Error : BOOL; (*internal variable*)
@@ -4057,6 +4215,7 @@ FUNCTION_BLOCK MC_005BR_MoveAbsoluteTriggSto (*starts a movement to specified Po
 		state : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -4081,23 +4240,26 @@ FUNCTION_BLOCK MC_006BR_MoveAdditiveTriggSto (*starts a movement for the specifi
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
-		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
 		C_Distance : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
 		C_Deceleration : REAL; (*internal variable*)
 		C_TriggerDistance : DINT; (*internal variable*)
+		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
 		C_ForceTriggerDistance : BOOL; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)		
 		C_ErrorID : UINT; (*internal variable*)
-		C_CommandedOffset : DINT; (*internal variable*)
-		C_CommandedPosition : REAL; (*internal variable*)
+		C_Error : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
+		C_CommandedOffset : DINT; (*internal variable*)
+		C_CommandedPosition : REAL; (*internal variable*)		
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		oldMoveID : USINT; (*internal variable*)
+		reserve : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -4121,20 +4283,23 @@ FUNCTION_BLOCK MC_007BR_MoveVelocityTriggSto (*starts a movement with specified 
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
-		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
-		C_Velocity : REAL; (*internal variable*)
+		C_Velocity : REAL; (*internal variable*)		
 		C_Acceleration : REAL; (*internal variable*)
 		C_Deceleration : REAL; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
+		cmdExecute : BOOL; (*internal variable*)
 		C_Direction : USINT; (*internal variable*)
-		C_TriggerDistance : DINT; (*internal variable*)
 		C_Done : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
 		C_ErrorID : UINT; (*internal variable*)
-		state : USINT; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)
+		C_Error : BOOL; (*internal variable*)				
+		C_TriggerInput : MC_TRIGGER_REF; (*internal variable*)
+		state : USINT; (*internal variable*)	
+		C_TriggerDistance : DINT; (*internal variable*)		
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		oldMoveID : USINT; (*internal variable*)
+		reserve : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -5086,34 +5251,36 @@ FUNCTION_BLOCK MC_034BR_EventMoveAbsolute (*starts an absolute positioning movem
 		WaitingForEvent : BOOL; (*waiting for event*)
 	END_VAR
 	VAR
-		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
+		C_Axis : UDINT; (*internal variable*)		
 		C_EventInput : MC_BR_EVINPUT_REF; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
 		C_Position : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
-		C_Deceleration : REAL; (*internal variable*)
-		C_Direction : USINT; (*internal variable*)
+		C_Deceleration : REAL; (*internal variable*)		
 		C_Mode : UINT; (*internal variable*)
 		C_PositionParID : UINT; (*internal variable*)
 		C_InPosition : BOOL; (*internal variable*)
 		C_WaitingForEvent : BOOL; (*internal variable*)
 		C_Busy : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
-		C_ErrorID : UINT; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)		
+        C_ErrorID : UINT; (*internal variable*)
+        C_Error : BOOL; (*internal variable*)
+        C_Direction : USINT; (*internal variable*)
 		C_CommandedOffset : DINT; (*internal variable*)
 		CmpIndex : UINT; (*internal variable*)
 		VarIndex : UINT; (*internal variable*)
 		EvMoveStatusOffset : UINT; (*internal variable*)
 		EvMoveStatusRecIndex : USINT; (*internal variable*)
-		Reserve : USINT; (*internal variable*)
-		StatusBitDisabled : BOOL; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitEvMoveStatusValid : BOOL; (*internal variable*)
 		C_MoveActive : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		LockID : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		WaitForTelegrams : BOOL; (*internal variable*)
+        oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -5139,8 +5306,8 @@ FUNCTION_BLOCK MC_035BR_EventMoveAdditive (*starts a movement on the drive by a 
 	END_VAR
 	VAR
 		C_Axis : UDINT; (*internal variable*)
-		C_Execute : BOOL; (*internal variable*)
 		C_EventInput : MC_BR_EVINPUT_REF; (*internal variable*)
+		C_Execute : BOOL; (*internal variable*)
 		C_Distance : DINT; (*internal variable*)
 		C_Velocity : REAL; (*internal variable*)
 		C_Acceleration : REAL; (*internal variable*)
@@ -5150,22 +5317,25 @@ FUNCTION_BLOCK MC_035BR_EventMoveAdditive (*starts a movement on the drive by a 
 		C_InPosition : BOOL; (*internal variable*)
 		C_WaitingForEvent : BOOL; (*internal variable*)
 		C_Busy : BOOL; (*internal variable*)
-		C_CommandAborted : BOOL; (*internal variable*)
-		C_Error : BOOL; (*internal variable*)
-		C_ErrorID : UINT; (*internal variable*)
+		C_CommandAborted : BOOL; (*internal variable*)	
+        C_ErrorID : UINT; (*internal variable*)
+        C_Error : BOOL; (*internal variable*)
+        Reserve : USINT; (*internal variable*)
 		C_CommandedOffset : DINT; (*internal variable*)
 		C_CommandedPosition : DINT; (*internal variable*)
 		CmpIndex : UINT; (*internal variable*)
 		VarIndex : UINT; (*internal variable*)
 		EvMoveStatusOffset : UINT; (*internal variable*)
 		EvMoveStatusRecIndex : USINT; (*internal variable*)
-		Reserve : USINT; (*internal variable*)
-		StatusBitDisabled : BOOL; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitEvMoveStatusValid : BOOL; (*internal variable*)
 		C_MoveActive : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		LockID : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+        WaitForTelegrams : BOOL; (*internal variable*)
+        oldMoveID : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -5214,11 +5384,12 @@ FUNCTION_BLOCK MC_036BR_EventMoveVelocity (*starts a controlled movement with a 
 		Reserve1 : USINT; (*internal variable*)
 		VelocityOffset : UINT; (*internal variable*)
 		VelocityRecIndex : USINT; (*internal variable*)
-		Reserve2 : USINT; (*internal variable*)
-		StatusBitDisabled : BOOL; (*internal variable*)
+		SavedFrDrvCnt : USINT; (*internal variable*)
+		WaitEvMoveStatusValid : BOOL; (*internal variable*)
 		C_MoveActive : BOOL; (*internal variable*)
 		state : USINT; (*internal variable*)
 		MoveID : USINT; (*internal variable*)
+		WaitForTelegrams : USINT; (*internal variable*)
 	END_VAR
 END_FUNCTION_BLOCK
 
@@ -6569,3 +6740,114 @@ FUNCTION_BLOCK MC_094BR_ResetAutPar (*initializes the general parameters of the 
 	END_VAR
 END_FUNCTION_BLOCK
 
+FUNCTION_BLOCK MC_096BR_InitEndlessPosAcpEnc (*initialize memory for endless position storage for external encoder*)
+	VAR_INPUT
+		AcpEncoder : MC_ACP_ENCOD_REF; (*ACOPOS encoder*)
+		Execute : BOOL; (*initialize memory storage at rising edge*)
+		DataAddress : UDINT; (*data address of memory storage for endless position*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*memory storage for endless position was initialized*)
+		Busy : BOOL; (*function block is not finished*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		DataValid : BOOL; (*axis position can be restored from the endless position data*)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0138_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_097BR_NetworkInit (*controls the network initilization*)
+	VAR_INPUT
+        Axis : UDINT; (*axis reference*)
+        Execute : BOOL; (*execute command at rising edge*)
+        Command : UINT; (*select the command for the network initialization*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*command executed*)
+		Busy : BOOL; (*function block is not finished*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+	END_VAR
+	VAR
+		C_Object : UDINT; (*internal variable*)
+		IS : MC_0139_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_098BR_CommandError (*transfers error commands to the drive, where they are entered*)
+	VAR_INPUT
+		Axis  : UDINT; (*axis reference*)
+		Execute : BOOL; (*transfer command at rising edge*)
+		Command : UINT; (*error command*)
+	END_VAR
+	VAR_OUTPUT
+		Done  : BOOL; (*command was successfully transferred *)
+		Busy  : BOOL; (*function block is not finished yet*)
+		Error : BOOL; (*error occured in FB*)
+		ErrorID : UINT; (*error number *)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0140_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_099BR_SetupFromParTabObj (*starts a setup with parameter from an ACOPOS parameter table*)
+	VAR_INPUT
+		Axis : UDINT; (*axis reference*)
+		Execute : BOOL; (*starts the commanded action at rising edge*)
+		Command : UINT; (*choose the command for the setup*)
+		DataObjectName : STRING[12]; (*name of the ACOPOS parameter table*)
+	END_VAR
+	VAR_OUTPUT
+		Done : BOOL; (*command succesfully completed*)
+		Busy : BOOL; (*function block is not finished*)
+		CommandAborted : BOOL; (*function block is aborted by another command*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		SetupOutput : MC_SETUP_OUTPUT_REF; (*structure for output values*)
+	END_VAR
+	VAR
+		C_Axis : UDINT; (*internal variable*)
+		IS : MC_0145_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK
+
+FUNCTION_BLOCK MC_100BR_CamIn (*starts a cam profile link between the master and the slave axis*)
+	VAR_INPUT
+		Master : UDINT; (*axis reference of the master axis*)
+		Slave : UDINT; (*axis reference of the slave axis*)
+		Enable : BOOL; (*function block is activated*)
+		InitData : BOOL; (*starts transferring the parameters*)
+		CamTableID : USINT; (*ID number of the cam profile*)
+		MasterStartPosition : REAL; (*master position where the cam profile starts*)
+		MasterScaling : DINT; (*factor of the master profile*)
+		SlaveScaling : DINT; (*factor of the slave scaling*)
+		EnterCam : BOOL; (*signal from the control to start the coupling*)
+		ExitCam : BOOL; (*signal from the control to end the coupling*)
+		Restart : BOOL; (*signal from the control to restart the coupling*)
+        AdvancedParameters: MC_ADVANCED_CAM_PAR_REF; (*additional inputs for advanced usage of FB*)
+	END_VAR
+	VAR_OUTPUT
+		Active : BOOL; (*parameters are transferred and FB is active*)
+		Busy : BOOL; (*function block is enabled*)
+		CommandAborted : BOOL; (*function block aborted by another FB*)
+		Error : BOOL; (*error occurred in FB*)
+		ErrorID : UINT; (*error number*)
+		DataInitialized : BOOL; (*transferring parameters is completed*)
+		Running : BOOL; (*cam coupling is running*)
+		StandBy : BOOL; (*cam coupling is active in the background*)
+		InLeadIn : BOOL; (*the coupling is within the leadin range*)
+		InCam : BOOL; (*the coupling is within the cam range*)
+		InLeadOut : BOOL; (*the coupling is within the leadout range*)
+		EndOfProfile : BOOL; (*pulsed output signaling the cyclic end of the cam profile*)
+	END_VAR
+	VAR
+		C_Master : UDINT; (*internal variable*)
+		C_Slave : UDINT; (*internal variable*)
+		IS: MC_0146_IS_TYP; (*internal variable*)
+	END_VAR
+END_FUNCTION_BLOCK

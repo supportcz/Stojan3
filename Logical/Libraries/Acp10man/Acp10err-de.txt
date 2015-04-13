@@ -44,6 +44,7 @@
    72: Firmwareversion kleiner als Minimalversion
        Info(UINT): Mindestversion
    73: Ungültiges R4 Fließkomma-Format
+   74: Parameter kann nur über Kanal 1 (Achse 1) geschrieben werden
  1001: Fehler-FIFO Überlauf
  1002: Parameter nicht im gültigen Wertebereich
  1003: Parameter schreiben bei aktiver Regelung nicht erlaubt
@@ -73,6 +74,8 @@
  1027: Funktion ist für diese Hardware nicht verfügbar
  1028: Maximale Anzahl von Netzwerk-Kopplungen überschritten
  1029: Parameter schreiben nicht erlaubt: Abbruch-Rampe aktiv
+ 1030: Funktion ist bei ACP10SIM nur im Simulationsmodus 'Complete' verfügbar
+ 1031: Lageregler Zykluszeit überschritten - CPU Auslastung zu hoch
  2001: Upload der Trace-Daten nicht erlaubt: Aufzeichnung aktiv 
  2003: Trace-Start nicht erlaubt: Aufzeichnung aktiv
  2006: Initialisierung der Trace-Parameter nicht erlaubt: Aufzeichnung aktiv
@@ -87,6 +90,8 @@
        Info('PARID'): Parameter-ID
  4014: Zwei-Geberregelung: Abbruchgrenze der Positionsdifferenz überschritten
        Info(REAL): Aktuelle Positionsdifferenz
+ 4015: Fehler durch Kommando ausgelöst
+       Info(UINT): Kommando-Parameter
  5001: Zielposition überschreitet positive SW-Endlage
  5002: Zielposition überschreitet negative SW-Endlage
  5003: Positive SW-Endlage erreicht
@@ -125,6 +130,9 @@
  5038: Referenzier-Modus nicht möglich: Restore-Daten ungültig
        Info(UINT): Detail
  5039: Funktion nicht möglich: Geberfehler
+ 5040: Ruckbegrenzer: Zu viele Beschleunigungsänderungen - Bewegungs-Abbruch
+ 5041: Ruckbegrenzer: Kommando nicht erlaubt
+ 5042: Ruckbegrenzer: Zu viele Beschleunigungsänd. - Kommando nicht möglich
  5101: Kurvenscheiben-Ausgleichsgetriebe: Grenzwerte überschritten
  5102: Zu viele Kurvenwechsel pro Zyklus (Masterperiode zu kurz)
  5103: Slave Trigger-FIFO voll 
@@ -166,7 +174,7 @@
  6016: CAN-Controller: CAN-Bus Störungen (Sendefehlerzähler größer 96)
        Info(USINT): Slot
  6017: Software: Watchdog aktiv
- 6018: Hardware: Fehler in der 15V-Spannungsversorgung
+ 6018: Hardware: Ausfall der internen Spannungsversorgung
  6019: ACOPOS: Überstrom
  6020: Hardware: Fehler in der 24V-Spannungsversorgung
  6021: Low-Pegel am Reglerfreigabe-Eingang
@@ -194,7 +202,7 @@
  6043: PHASING_MODE ist ungültig
        Info(UINT): PHASING_MODE
  6044: Einphasen: Drehsinn oder Position ungültig
-       Info(REAL): Berechnete Polpaarzahl
+       Info(INT): Berechnete Polpaarzahl
  6045: Leistungsteil: Anschluss X5: Kein Stromfluss
        Info(USINT): Phase
  6046: Einphasen: Keine Rotorbewegung
@@ -222,7 +230,7 @@
  6063: Haltebremse: Fremdspannung am Haltebremsausgang über 24V
  6064: Parameter schreiben nicht erlaubt: Repetitive Control aktiv
  6065: Initialisierungsvorgang aktiv
-       Info(UINT): PARID
+       Info(UINT): Initialisierungnummer
  6066: Indexüberlauf beim Initilialisieren von Matrizen
        Info(UINT): Indexüberlauf
  6067: Fehler beim Initialisieren des dynamischen Systems
@@ -230,7 +238,12 @@
  6068: Parameter schreiben bei aktivem Bremsentest nicht erlaubt
        Info(UINT): Fehlercode
  6069: Haltebremse: Überstrom
+ 6070: Parameter schreiben nicht erlaubt: Einphasen aktiv
+ 6071: Einphasen: Polpaarzahl MOTOR_POLEPAIRS nicht gültig
+       Info(INT): Berechnete Polpaarzahl
  6072: Haltebremse: Überspannung
+ 6073: Reglerzusatzfunktion im Fehlerzustand
+       Info(UINT): Fehlerstatus
  7012: Geber: Hiperface Error Bit
        Info(USINT): Slot
  7013: Geber: Statusmeldung
@@ -323,6 +336,8 @@
        Info(USINT): Slot
  7067: EnDat-Geber: SMC Modul nicht im Zustand Operational
        Info(USINT): Slot
+ 7068: Geber: Maximale Zykluszeit überschritten
+       Info(USINT): Slot
  7100: Parameterfunktion wird nicht unterstützt. (Einsteckkarte ?)
  7200: Zwischenkreis: Überspannung
  7210: Zwischenkreis: Vorladen: Spannung instabil 
@@ -368,6 +383,8 @@
  8007: Wert des EEPROM-Parameters ist ungültig 
        Info(UINT): EEPROM Parameter-ID
  8011: EPROM: Daten nicht gültig
+ 8012: EPROM: Controller-ID nicht gültig
+       Info(USINT): CODE
  8020: Ungültige Schaltfrequenz
  9000: Kühler-Temperatursensor: Übertemperatur - Bewegungs-Abbruch
        Info(REAL): Grenztemperatur
@@ -434,6 +451,7 @@
  9089: Motorgeber-Temperatursensor: Übertemperatur
        Info(REAL): Temperatur
  9090: Motorgeber-Temperatursensor: Temperaturwert nicht gültig
+ 9091: Leistungsteil: Hauptrelais oder 24V DC-DC Wandler: Übertemperatur
  9300: Stromregler: Überstrom
        Info(REAL): Grenzwert
 10000: Identifikationsparameter unvollständig
@@ -473,7 +491,7 @@
        Info(UINT): PLCopen_FB
 29217: Ungültiger Eingabeparameter
        Info(UINT): PLCopen_FB
-29218: Unbekannter PLCopen Achs-Zustand
+29218: Unbekannter PLCopen Achszustand
        Info(UINT): PLCopen_FB
 29219: Ungültiger Wert für PLCopen-Parameter
        Info(UINT): PLCopen_FB
@@ -489,7 +507,7 @@
        Info(UINT): PLCopen_FB
 29228: Dieser Antrieb kann keine weitere Masterposition vom Netzwerk lesen
        Info(UINT): PLCopen_FB
-29229: Gekoppelte Bewegung nicht möglich
+29229: Synchronisierte Bewegung nicht möglich
        Info(UINT): PLCopen_FB
 29230: Interner Fehler: Fehler beim Übertragen der Parameterliste
        Info(UINT): PLCopen_FB
@@ -511,7 +529,7 @@
        Info(UINT): PLCopen_FB
 29240: Die angegebene ParID kann wegen der Datentyp-Größe nicht verwendet werden
        Info(UINT): PLCopen_FB
-29241: Falscher Parametertyp für angegebene ParID
+29241: Falscher Datentyp für angegebene ParID
        Info(UINT): PLCopen_FB
 29242: Zyklische Lesedaten voll
        Info(UINT): PLCopen_FB
@@ -553,7 +571,7 @@
        Info(UINT): PLCopen_FB
 29267: Ungültige Anzahl von Kurvenscheibenpolynomen
        Info(UINT): PLCopen_FB
-29268: Der FB wurde durch einen anderen unterbrochen
+29268: Der FB wurde durch einen anderen abgebrochen
        Info(UINT): PLCopen_FB
 29269: Fehler beim Speichern des NC-INIT-Parameter-Modules
        Info(UINT): PLCopen_FB
@@ -561,7 +579,7 @@
        Info(UINT): PLCopen_FB
 29271: Der ausgewählte FB vom Typ MC_TouchProbe ist nicht aktiv
        Info(UINT): PLCopen_FB
-29272: Kurvenscheiben-Automatendaten nicht initialisiert
+29272: Kurvenscheibenautomaten-Daten nicht initialisiert
        Info(UINT): PLCopen_FB
 29273: Das angegebene 'Subject' ist ungültig
        Info(UINT): PLCopen_FB
@@ -1011,6 +1029,8 @@
 32248: ACOPOS-Parameter Header im Modul acp10cfg ungültig (Section überschritten)
        Info(UINT): Interface-Index (im HB) und Knotennummer (im LB) dieses Antriebes
 32249: ACOPOS-Parameter Deskriptor im Modul acp10cfg ungültig (Section überschritten)
+32250: ACOPOS-Parameter im Modul acp10cfg: Länge der Parameter-Daten zu groß
+       Info(UINT): Maximal erlaubte Länge
 32251: NcNetCyc: Response-Timeout
        Info(UDINT): Timeout [us]
 32252: NcNetCyc: Unerwartete Response (ungültiger Zählerwert)
@@ -1061,6 +1081,10 @@
        Info(UDINT): Differenz zwischen maxOutTime und minOutTime
 32288: Erweiterte Kopplungs-Daten nicht möglich (Taskklassen-Toleranz ist nicht Null)
        Info(USINT): Nummer der NC-Manager Taskklasse
+32289: Netzwerk Kopplung: SDC/SIM Master und Slave in unterschiedlichen Taskklassen
+32290: INIT Broadcast Datenpunkt: Aufruf der NC-Aktion nur in SDC Taskklasse erlaubt
+       Info(USINT): Taskklassennummer des zugehörigen SDC Interface
+32291: INIT Broadcast Datenpunkt: "dp_data_bits" oder "dp_task_class" ist Null
 32302: Setup starten nicht möglich: Es ist bereits eine Setup-Operation aktiv
 32322: Datenblock Upload/Download: Der Datenobjekt Name ist Null
 32323: Datenblock Upload/Download: Die Datenblock Parameter-ID ist ungültig
@@ -1069,6 +1093,10 @@
 32326: Datenblock Upload/Download: Adresse des Datenpuffers ist Null
 32327: Datenblock Upload/Download: Länge des Datenpuffers ist Null
 32328: Datenblock Upload: Länge des Datenpuffers kleiner als Länge des Datenblocks
+32329: Setup: Maximale Anzahl von initialen ACOPOS-Parametern überschritten
+       Info(UDINT): Maximale Anzahl
+32330: Setup: Daten eines ACOPOS-Parameters länger als 6 Bytes
+       Info(UINT): Parameter-ID
 32398: acp10sys enthält kein Betriebssystem für diesen ACOPOS Hardware Typ
 32399: Manueller ACOPOS-Restart (POWER-OFF/-ON) nach NCSYS-Download notwendig
 32400: Speicher kann nicht allokiert werden
@@ -1141,6 +1169,9 @@
        Info(UINT): Status von RtkCreateCriticalSection()
 32513: Die Critical Section für globale Variablen ist bereits vorhanden 
 32514: Fehler beim Erzeugen der Critical Section für globale Variablen
+       Info(UINT): Status von RtkCreateCriticalSection()
+32515: Die Critical Section für Netzwerk-Kopplung ist bereits vorhanden 
+32516: Fehler beim Erzeugen der Critical Section für Netzwerk-Kopplung
        Info(UINT): Status von RtkCreateCriticalSection()
 32738: Fehler bei Schreiben in die SDM Motion FIFO
 32739: Fehler bei Erzeugung der SDM Motion FIFO (siehe Logger)
@@ -1451,6 +1482,8 @@
 36002: Lageregler Gesamtverzögerungszeit begrenzt auf Vorausschauzeit
 36003: Bremsweg überschreitet positive SW-Endlage - Verzögerungs-Parameter erhöht
 36004: Bremsweg überschreitet negative SW-Endlage - Verzögerungs-Parameter erhöht
+36005: Warnung durch Kommando ausgelöst
+       Info(UINT): Kommando-Parameter
 37101: Berechneter Ausgleichsweg der Slave Achse begrenzt auf Maximum
 37102: Berechneter Ausgleichsweg der Slave Achse begrenzt auf Minimum
 37103: Slave Trigger außerhalb Fenster
@@ -1466,8 +1499,8 @@
        Info(UINT): Detail
 37113: Kurvenscheiben-Ausgleichsgetriebe: Grenzwerte überschritten
 38000: Stromregler: Während dem Einschalten ist Motordrehzahl zu hoch
-38001: Momentbegrenzer: Grenzwert zu groß.
-       Info(REAL): Strom Grenzwert
+38001: Momentbegrenzer: Grenzwert größer als Maximalwert
+       Info(REAL): Maximalwert
 38003: Motorhaltebremse: Prüfmoment wurde begrenzt 
 38004: Motorhaltebremse: Prüfmoment kleiner als Lastmoment 
 38005: Motortest: Geschwindigkeit ist während dem Einschalten zu hoch
@@ -1566,6 +1599,10 @@
        Info(USINT): Slot
 39045: EnDat-Geber: Betriebszustandsfehlerquellen: M Batterie
        Info(USINT): Slot
+39047: Geber: Position nicht synchron mit Absolutwert
+       Info(USINT): Slot
+39048: Geber: Geberfehlerfilter aktiv
+       Info(USINT): Slot
 39301: Digital IO: 24V-Spannungsversorgung fehlerhaft
        Info(UINT): Slot
 39302: Digital IO 1-4: Diagnosebit aktiv (Strom, 24V Versorgung)
@@ -1608,6 +1645,7 @@
        Info(REAL): Temperatur
 41089: Motorgeber-Temperatursensor: Übertemperatur
        Info(REAL): Temperatur
+41090: Leistungsteil: Hauptrelais oder 24V DC-DC Wandler: Übertemperatur
 64002: Wartezeit vor SW-Reset (Netzwerk mit aufsteigenden Knotennummern ?)
 64003: Wartezeit vor NC-System-Start (Netzwerk mit aufsteigenden Knotennummern ?)
 64004: Der folgende Hochlauf-Fehler könnte hier mit Verzögerung eingetragen sein
@@ -1624,6 +1662,7 @@
 64010: NC Software Testversion (Gültigkeitsperiode im Logger)
 64011: Timeout für Abschluss der Geber-Initialisierung
 64012: acp10sys enthält kein Betriebssystem für diesen ACOPOS Hardware Typ
+64013: Die Basis-Initialisierung wurde wegen eines Fehlers abgebrochen
 64500: Positive Geschwindigkeits-Begrenzung aktiv
 64501: Negative Geschwindigkeits-Begrenzung aktiv
 64502: Beschleunigungsmomenten/Kraft-Begrenzung in positiver Richtung aktiv

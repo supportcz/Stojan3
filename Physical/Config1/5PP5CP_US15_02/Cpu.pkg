@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?AutomationStudio Version=4.0.17.85 SP?>
+<?AutomationStudio Version=4.1.5.68 SP?>
 <Cpu xmlns="http://br-automation.co.at/AS/Cpu">
   <Objects>
     <Object Type="File" Description="Software configuration">Cpu.sw</Object>
@@ -10,7 +10,7 @@
     <Object Type="File" Description="SafeDESIGNER project">SafeLOGIC-1.swt</Object>
   </Objects>
   <Configuration>
-    <AutomationRuntime Version="G4.06" />
+    <AutomationRuntime Version="D4.09" />
     <Build GccVersion="4.1.2" />
     <DefaultTargetMemory Tasks="UserROM" />
     <Safety SafetyRelease="1.6" />

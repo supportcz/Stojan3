@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?AutomationStudio Version=4.0.20.56 SP?>
+<?AutomationStudio Version=4.0.22.47 SP?>
 <Hardware xmlns="http://br-automation.co.at/AS/Hardware">
   <Module Name="5PP520.1043-00" Type="5PP520.1043-00" Version="2.0.1.2">
     <Connector Name="IF3">
@@ -28,8 +28,6 @@
     <Parameter ID="Cyclic8Duration" Value="10000" />
     <Parameter ID="Cyclic8Tolerance" Value="30000000" />
     <Parameter ID="EthernetHostName" Value="stojan3" />
-    <Parameter ID="Temp.ProjectDirectory" Value="C:\Work\BaR\Stojan3\" />
-    <Parameter ID="Temp.ConfigurationName" Value="Config1" />
   </Module>
   <Module Name="5PP5IF.FPLM-00" Type="5PP5IF.FPLM-00" Version="2.3.0.0">
     <Connection Connector="SL" TargetModule="5PP520.1043-00" TargetConnector="SL1" />
@@ -40,10 +38,10 @@
   <Module Name="8BAC0120.000-1a" Type="8BAC0120.000-1" Version="1.0.0.2">
     <Connection Connector="SS" TargetModule="8BVI0014HCD0.000-1" TargetConnector="SS2" />
   </Module>
-  <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" Version="1.0.0.2">
+  <Module Name="8BVI0014HCD0.000-1" Type="8BVI0014HCD0.000-1" Version="1.0.0.1">
     <Connection Connector="PLK1" TargetModule="8BVP0220HC00.000-1" TargetConnector="PLK2" NodeNumber="2" />
   </Module>
-  <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" Version="1.0.0.2">
+  <Module Name="8BVI0014HCSS.000-1" Type="8BVI0014HCSS.000-1" Version="1.0.0.1">
     <Connection Connector="PLK1" TargetModule="8BVI0014HCD0.000-1" TargetConnector="PLK2" NodeNumber="3" />
     <Parameter ID="BothEndSwitchesAreNormallyOpen_r1" Value="on" />
     <Parameter ID="QuickStopIsNormallyOpen_r1" Value="on" />
@@ -67,7 +65,7 @@
   <Module Name="X20MK0201" Type="X20MK0201" Version="1.0.0.0">
     <Connection Connector="SL" TargetModule="X20SL8010" TargetConnector="SL1" />
   </Module>
-  <Module Name="X20SL8010" Type="X20SL8010" Version="1.6.4.0">
+  <Module Name="X20SL8010" Type="X20SL8010" Version="1.6.2.0">
     <Connection Connector="PLK1" TargetModule="8BVI0014HCSS.000-1" TargetConnector="PLK2" NodeNumber="4" />
     <Connection Connector="SS1" TargetModule="X20TB52" TargetConnector="SS" />
     <Parameter ID="SafeProject" Value="SafeLOGIC-1" />

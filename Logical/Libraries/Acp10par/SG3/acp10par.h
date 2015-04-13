@@ -2,7 +2,7 @@
 *                    B & R   P O S I T I O N I N G                          *
 *****************************************************************************
 *                                                                           *
-*            Header File for Library ACP10PAR (Version 2422)                * 
+*            Header File for Library ACP10PAR (Version 2471)                * 
 *                                                                           *
 **************************** COPYRIGHT (C) **********************************
 *     THIS SOFTWARE IS THE PROPERTY OF B&R AUSTRIA: ALL RIGHTS RESERVED.    *
@@ -34,7 +34,6 @@
 #define ACP10PAR_ENCOD3_REF_DCM_DIFF         23 /* (DINT) Encoder3: DCM Distance difference [Lines] */
 #define ACP10PAR_FFCTRL_KV_TORQUE            24 /* (REAL) CTRL Feed forward: Speed torque factor [Nms] */
 #define ACP10PAR_PLIM_MODE                   25 /* (UDINT) Power limiter: Mode */
-#define ACP10PAR_CMD_EN_OC_STOP              28 /* (UINT) Command: Enable for emergency stop due to overcurrent */
 #define ACP10PAR_MOTOR_TYPE                  30 /* (UINT) Motor: Type */
 #define ACP10PAR_MOTOR_COMPATIBILITY         31 /* (UINT) Motor: Software compatibility */
 #define ACP10PAR_MOTOR_DATE                  32 /* (UDINT) Motor: Test date */
@@ -275,6 +274,7 @@
 #define ACP10PAR_CONST_I4_ONE               310 /* (DINT) Function block: Constant one */
 #define ACP10PAR_ENABLE_CONFIG              311 /* (UDINT) ENABLE: Configuration */
 #define ACP10PAR_FCTRL_IM_LIM_MAX           312 /* (REAL) CTRL Flux:  Magnetizing current limiter: Upper limit [A] */
+#define ACP10PAR_SCTRL_SPEED_MON_LIM        313 /* (REAL) CTRL Speed controller: Monitoring: Speed limit [1/s] */
 #define ACP10PAR_CHP_DUTY_CYCLE_MIN         314 /* (REAL) CTRL Chopper: Minimum pwm duty cycle */
 #define ACP10PAR_JUNCTION_POWER_LOSS        315 /* (REAL) Power stage: Junction temperature model: Power loss [W] */
 #define ACP10PAR_BRAKE_TEST_POS_DELTA       323 /* (REAL) Motor holding brake: Maximal position error [Rev.] */
@@ -735,6 +735,7 @@
 #define ACP10PAR_ENCOD2_ADC2                820 /* (REAL) Encoder2: ADC2 value */
 #define ACP10PAR_ENCOD3_ADC1                821 /* (REAL) Encoder3: ADC1 value */
 #define ACP10PAR_ENCOD3_ADC2                822 /* (REAL) Encoder3: ADC2 value */
+#define ACP10PAR_ENCOD2_DIAG1               823 /* (REAL) Encoder2: Diagnosis 1 */
 #define ACP10PAR_ISQ_FILTER1_C0_PARID       824 /* (UINT) CTRL Speed controller: Set current filter1 parameter ID for coefficient C0 */
 #define ACP10PAR_ISQ_FILTER2_C0_PARID       825 /* (UINT) CTRL Speed controller: Set current filter2 parameter ID for coefficient C0 */
 #define ACP10PAR_ISQ_FILTER3_C0_PARID       826 /* (UINT) CTRL Speed controller: Set current filter3 parameter ID for coefficient C0 */
@@ -856,6 +857,7 @@
 #define ACP10PAR_KSCTRL_I                   950 /* (REAL) Induction stop: Short circuit current (synchronous motor) [A] */
 #define ACP10PAR_ENCOD2_TRANS_RATIO         951 /* (REAL) Encoder2: Resolver transmission ratio */
 #define ACP10PAR_ENCOD3_TRANS_RATIO         952 /* (REAL) Encoder3: Resolver transmission ratio */
+#define ACP10PAR_ENCOD3_DIAG1               953 /* (REAL) Encoder3: Diagnosis 1 */
 #define ACP10PAR_FWCTRL_ISD0                954 /* (REAL) CTRL Flux weakening: Demagnetizing current [A] */
 #define ACP10PAR_UFCTRL_SLIP_COMP_K         957 /* (REAL) CTRL U/f: Slip compensation: Multiplication factor of compensated frequency */
 #define ACP10PAR_FWCTRL_SPEED0              959 /* (REAL) CTRL Flux weakening: Start speed flux weakening [1/s] */
@@ -964,14 +966,17 @@
 #define ACP10PAR_TUNE_V_MAX_PERCENT        1102 /* (REAL) Autotuning: Maximum percentage for speed [%] */
 #define ACP10PAR_TUNE_S_MAX                1103 /* (REAL) Autotuning: Maximum movement distance [Units] */
 #define ACP10PAR_TUNE_DS_MAX               1104 /* (REAL) Autotuning: Maximum lag error [Units] */
-#define ACP10PAR_TUNE_SIGNAL_PERIODS       1106 /* (UDINT) Autotuning: Number of stimulation periods */
+#define ACP10PAR_TUNE_SIGNAL_PERIODS       1106 /* (UDINT) Autotuning: Number of excitation periods */
 #define ACP10PAR_TUNE_DRIVE_INERTIA        1109 /* (REAL) Autotuning: Estimated drive inertia [kgm^2] */
-#define ACP10PAR_TUNE_SIGNAL_ORDER         1110 /* (UDINT) Autotuning: Order of stimulation signal */
+#define ACP10PAR_TUNE_SIGNAL_ORDER         1110 /* (UDINT) Autotuning: Order of excitation signal */
 #define ACP10PAR_TUNE_OPTION_BITS          1111 /* (UDINT) Autotuning: Option control bits */
 #define ACP10PAR_TUNE_KV_PERCENT           1112 /* (REAL) Autotuning: Percentage for proportional amplification [%] */
 #define ACP10PAR_TUNE_RESONANCE_FACTOR     1113 /* (REAL) Autotuning: Factor for detection of a resonance */
 #define ACP10PAR_TUNE_INERTIA_F_LOWER      1114 /* (REAL) Autotuning: Lower frequency for estimation of drive inertia [Hz] */
 #define ACP10PAR_TUNE_INERTIA_F_UPPER      1115 /* (REAL) Autotuning: Upper frequency for estimation of drive inertia [Hz] */
+#define ACP10PAR_TUNE_DELAY_TIME           1116 /* (REAL) Autotuning: Delay time during transients [s] */
+#define ACP10PAR_SIGEN_CHIRP_START_FREQ    1117 /* (REAL) Signal generator: Start frequency of chirp signal [Hz] */
+#define ACP10PAR_SIGEN_CHIRP_STOP_FREQ     1118 /* (REAL) Signal generator: Stop frequency of chirp signal [Hz] */
 #define ACP10PAR_PIDENT_SUB_MODE           1125 /* (UDINT) Parameter identification: Sub-mode */
 #define ACP10PAR_PIDENT_STATE_BITS         1126 /* (UDINT) Parameter identification: State bits */
 #define ACP10PAR_ISQ_RIPPLE_DAT_A_POS      1127 /* (REAL) ISQ-Ripple compensation: Data: Amplitude for quadrant I [A] */
@@ -1092,6 +1097,7 @@
 #define ACP10PAR_TLIM_ISQ_NEG              1271 /* (REAL) CTRL Torque limiter: Absolute value of negative current limit [A] */
 #define ACP10PAR_UDC_OFFSET                1278 /* (REAL) CTRL DC bus: Voltage offset [V] */
 #define ACP10PAR_VCTRL_I0_LIM              1279 /* (REAL) Power stage: Summation current: Limit [A] */
+#define ACP10PAR_PIDENT_THERM_TRIP_TIME    1283 /* (REAL) Parameter identification: Tripping time at thermal overload  [s] */
 #define ACP10PAR_VCTRL_RHO_ADD_PARID       1293 /* (UINT) CTRL Vector controller: Parameter ID of the additive commutation angle */
 #define ACP10PAR_VCTRL_RHO_ADD             1294 /* (REAL) CTRL Vector controller: Additive commutation angle [rad] */
 #define ACP10PAR_OBS_VOLT_US1              1295 /* (REAL) Voltage observer: Phase voltage U [V] */
@@ -1106,6 +1112,15 @@
 #define ACP10PAR_ENCOD_ADC2_OFFSET         1304 /* (DINT) Encoder: ADC2: Offset */
 #define ACP10PAR_ENCOD_ADC1_GAIN           1305 /* (REAL) Encoder: ADC1: Gain */
 #define ACP10PAR_PIDENT_S                  1306 /* (DINT) Parameter identification: Move distance [Units] */
+#define ACP10PAR_ENCOD0_POS_RANGE_LW       1308 /* (UDINT) Virtual Encoder: Range of encoder position low word [Incr] */
+#define ACP10PAR_ENCOD0_POS_RANGE_HW       1309 /* (UDINT) Virtual Encoder: Range of encoder position high word [Incr] */
+#define ACP10PAR_ENCOD0_CMD_HOMING         1310 /* (HOMING_S, HOMING_MODE, HOMING_MODE_BITS) Virtual Encoder: Command start homing procedure */
+#define ACP10PAR_ENCOD0_MAX_CYCLE_TIME     1311 /* (DINT) Virtual Encoder: Maximum cycle time */
+#define ACP10PAR_ENCOD0_POS1_IN_PARID      1312 /* (UINT) Virtual Encoder: Parameter ID of input value position 1 */
+#define ACP10PAR_ENCOD0_POS2_IN_PARID      1313 /* (UINT) Virtual Encoder: Parameter ID of input value position 1 */
+#define ACP10PAR_ENCOD0_TIME_IN_PARID      1314 /* (UINT) Virtual Encoder: Parameter ID of input value time */
+#define ACP10PAR_ENCOD0_S_FILTER_T10       1315 /* (REAL) Virtual Encoder: Time constant for actual position filter [s] */
+#define ACP10PAR_ENCOD0_S_FILTER_TE        1316 /* (REAL) Virtual Encoder: Extrapolation time for actual position filter [s] */
 #define ACP10PAR_ELC_TRANSFER_PARID        1318 /* (UINT) Encoderless control: Parameter-ID Transition  */
 #define ACP10PAR_ENCOD0_MODE               1320 /* (UDINT) Virtual Encoder: Mode */
 #define ACP10PAR_ENCOD0_POS_ACT            1321 /* (DINT) Virtual Encoder: Actual position per revolution [Incr] */
@@ -1154,6 +1169,7 @@
 #define ACP10PAR_ENCOD2_SSI_CONTENT_TYPE   1373 /* (USINT) Encoder2: SSI content type */
 #define ACP10PAR_ENCOD3_SSI_CONTENT_IDX    1374 /* (USINT) Encoder3: SSI content index */
 #define ACP10PAR_ENCOD3_SSI_CONTENT_TYPE   1375 /* (USINT) Encoder3: SSI content type */
+#define ACP10PAR_ENCOD0_S_ACT_FILTER       1379 /* (DINT) Virtual Encoder: Filtered actual position [Units] */
 #define ACP10PAR_UCTRL_T_RAMP              1389 /* (REAL) CTRL DC bus: Set value rise time [s] */
 #define ACP10PAR_ENCOD_BAUDRATE            1390 /* (DINT) Encoder1: Baud rate [kBaud] */
 #define ACP10PAR_ENCOD2_BAUDRATE           1391 /* (DINT) Encoder2: Baud rate [kBaud] */
@@ -1162,17 +1178,18 @@
 #define ACP10PAR_ENCOD_ABS_RES             1401 /* (DINT) Encoder1: Absolute resolution of an encoder revolution */
 #define ACP10PAR_ENCOD2_ABS_RES            1402 /* (DINT) Encoder2: Absolute resolution of an encoder revolution */
 #define ACP10PAR_ENCOD3_ABS_RES            1403 /* (DINT) Encoder3: Absolute resolution of an encoder revolution */
-#define ACP10PAR_ENCOD_SINAMP_LIMIT_MAX    1404 /* (REAL) Encoder1: Signal amplitude upper limmit [%] */
-#define ACP10PAR_ENCOD_SINAMP_LIMIT_MIN    1405 /* (REAL) Encoder1: Signal amplitude lower limmit [%] */
-#define ACP10PAR_ENCOD2_SINAMP_LIMIT_MAX   1406 /* (REAL) Encoder2: Signal amplitude upper limmit [%] */
-#define ACP10PAR_ENCOD2_SINAMP_LIMIT_MIN   1407 /* (REAL) Encoder2: Signal amplitude lower limmit [%] */
-#define ACP10PAR_ENCOD3_SINAMP_LIMIT_MAX   1408 /* (REAL) Encoder3: Signal amplitude upper limmit [%] */
-#define ACP10PAR_ENCOD3_SINAMP_LIMIT_MIN   1409 /* (REAL) Encoder3: Signal amplitude lower limmit [%] */
+#define ACP10PAR_ENCOD_SINAMP_LIMIT_MAX    1404 /* (REAL) Encoder1: Signal amplitude upper limit [%] */
+#define ACP10PAR_ENCOD_SINAMP_LIMIT_MIN    1405 /* (REAL) Encoder1: Signal amplitude lower limit [%] */
+#define ACP10PAR_ENCOD2_SINAMP_LIMIT_MAX   1406 /* (REAL) Encoder2: Signal amplitude upper limit [%] */
+#define ACP10PAR_ENCOD2_SINAMP_LIMIT_MIN   1407 /* (REAL) Encoder2: Signal amplitude lower limit [%] */
+#define ACP10PAR_ENCOD3_SINAMP_LIMIT_MAX   1408 /* (REAL) Encoder3: Signal amplitude upper limit [%] */
+#define ACP10PAR_ENCOD3_SINAMP_LIMIT_MIN   1409 /* (REAL) Encoder3: Signal amplitude lower limit [%] */
 #define ACP10PAR_ENCOD1_CMD_HOMING         1414 /* (HOMING_S, HOMING_MODE, HOMING_MODE_BITS) Encoder1: Command start homing procedure */
 #define ACP10PAR_STAT_ENC1_HOMING_OK       1415 /* (UDINT) Encoder1: Status home position valid */
 #define ACP10PAR_ENCOD1_HOMING_OFFSET      1416 /* (DINT) Encoder1: Homing offset [Units] */
 #define ACP10PAR_TARGET_S_ABS              1417 /* (DINT) Basis movements: Absolute target position [Units] */
 #define ACP10PAR_TARGET_S_ABS_VAX1         1418 /* (DINT) VAX Basis movements: Absolute target position [Units] */
+#define ACP10PAR_CROSSLINK_ENC1_S_ACT      1419 /* (UINT) Axis crosslink: Encoder1: Actual position */
 #define ACP10PAR_OPTIONAL_CTRL_CMD         1440 /* (UDINT) Optional IO: Control command */
 #define ACP10PAR_OPTIONAL_IN1              1441 /* (DINT) Optional IO: Input1 */
 #define ACP10PAR_OPTIONAL_IN2              1442 /* (DINT) Optional IO: Input2 */
@@ -1222,10 +1239,21 @@
 #define ACP10PAR_SIM_DAMPING               1496 /* (REAL) Simulation mode: Damping parameter of coupling [Nms/rad] */
 #define ACP10PAR_SIM_TORSION               1497 /* (REAL) Simulation mode: Torsion of coupling [Units] */
 #define ACP10PAR_SIM_SPEED2                1498 /* (REAL) Simulation mode: Speed of mass 2 [1/s] */
+#define ACP10PAR_CMD_ERROR                 1501 /* (UINT) Messages: Command execute error reaction  */
+#define ACP10PAR_CMD_ERROR_VAX1            1502 /* (UINT) VAX Messages: Command execute error reaction  */
 #define ACP10PAR_MOTOR_TEMPMODEL_MODE      1503 /* (UINT) Motor: Temperature model: Mode */
 #define ACP10PAR_MOTOR_BRAKE_VOLT_REL      1504 /* (REAL) Motor holding brake: Release voltage [V] */
 #define ACP10PAR_MOTOR_BRAKE_VOLT_HOLD     1505 /* (REAL) Motor holding brake: Hold voltage [V] */
 #define ACP10PAR_MOTOR_BRAKE_VOLT_MAX      1506 /* (REAL) Motor holding brake: Overvoltage limit [V] */
+#define ACP10PAR_UCTRL_ENABLE_THR_LO       1518 /* (REAL) CTRL DC bus: Controller: Lower enable threshold */
+#define ACP10PAR_UCTRL_ENABLE_THR_UP       1519 /* (REAL) CTRL DC bus: Controller: Upper enable threshold */
+#define ACP10PAR_ENCOD_MAX_SYNC_SPEED      1521 /* (REAL) Encoder1: Maximum speed vor serial position [1/s] */
+#define ACP10PAR_ENCOD2_DIAG2              1528 /* (REAL) Encoder2: Diagnosis 2 */
+#define ACP10PAR_ENCOD2_DIAG3              1529 /* (REAL) Encoder2: Diagnosis 3 */
+#define ACP10PAR_ENCOD3_DIAG2              1530 /* (REAL) Encoder3: Diagnosis 2 */
+#define ACP10PAR_ENCOD3_DIAG3              1531 /* (REAL) Encoder3: Diagnosis 3 */
+#define ACP10PAR_ENCOD2_MAX_SYNC_SPEED     1532 /* (REAL) Encoder2: Maximum speed vor serial position [1/s] */
+#define ACP10PAR_ENCOD3_MAX_SYNC_SPEED     1533 /* (REAL) Encoder3: Maximum speed vor serial position [1/s] */
 #define ACP10PAR_LOGIC_MODE                3072 /* (UINT) FB LOGIC: Mode */
 #define ACP10PAR_LOGIC_IN1_PARID           3080 /* (UINT) FB LOGIC: Parameter ID of input1 */
 #define ACP10PAR_LOGIC_IN2_PARID           3088 /* (UINT) FB LOGIC: Parameter ID of input2 */

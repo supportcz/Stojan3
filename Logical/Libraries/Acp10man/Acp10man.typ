@@ -388,6 +388,7 @@ ACP10SUMAP_typ : STRUCT                                     (* Parameters *)
    v_n                  : REAL ;                            (* Rated speed *)
    f_n                  : REAL ;                            (* Rated frequency *)
    cos_phi              : REAL ;                            (* Active power factor *)
+   t_tripping_therm     : REAL ;                            (* Tripping time at thermal overload *)
    optional             : ACP10SUMAO_typ ;                  (* Optional parameters *)
 END_STRUCT;
 ACP10SUMA_typ : STRUCT                                      (* Induction motor *)
@@ -423,6 +424,7 @@ ACP10SUMSP_typ : STRUCT                                     (* Parameters *)
    trq_n                : REAL ;                            (* Rated torque *)
    trq_max              : REAL ;                            (* Peak  torque *)
    i_max                : REAL ;                            (* Peak current *)
+   t_tripping_therm     : REAL ;                            (* Tripping time at thermal overload *)
    optional             : ACP10SUMSO_typ ;                  (* Optional parameters *)
 END_STRUCT;
 ACP10SUMS_typ : STRUCT                                      (* Synchronous motor *)
@@ -456,12 +458,13 @@ END_STRUCT;
 ACP10SUCPA_typ : STRUCT                                     (* Parameters *)
    mode                 : UINT ;                            (* Mode *)
    orientation          : USINT ;                           (* Orientation *)
-   reserve              : USINT ;                           (* Reserved *)
+   operating_point      : USINT ;                           (* Operating point *)
    i_max_percent        : REAL ;                            (* Maximum percentage for rated current *)
    v_max_percent        : REAL ;                            (* Maximum percentage for speed *)
    s_max                : DINT ;                            (* Maximum move distance *)
    ds_max               : REAL ;                            (* Maximum lag error *)
    kv_percent           : REAL ;                            (* Percentage for proportional amplification *)
+   signal_order         : UDINT ;                           (* Order of excitation signal *)
 END_STRUCT;
 ACP10SUCTR_typ : STRUCT                                     (* Controller *)
    status               : ACP10SUCST_typ ;                  (* Status *)
@@ -534,10 +537,16 @@ ACP10MSTXT_typ : STRUCT                                     (* Text determinatio
    status               : ACP10MTXST_typ ;                  (* Status *)
    parameter            : ACP10MTXPA_typ ;                  (* Parameters *)
 END_STRUCT;
+ACP10MSCMDERR_typ : STRUCT                                  (* Command: Execute error reaction *)
+   type                 : UINT ;                            (* Type *)
+   ok                   : USINT ;                           (* Operation complete *)
+   error                : USINT ;                           (* Error *)
+END_STRUCT;
 ACP10MSG_typ : STRUCT                                       (* Messages *)
    count                : ACP10MSCNT_typ ;                  (* Count of not acknowledged messages *)
    record               : ACP10MSREC_typ ;                  (* Error record *)
    text                 : ACP10MSTXT_typ ;                  (* Text determination for current message record *)
+   cmd_error            : ACP10MSCMDERR_typ ;               (* Command: Execute error reaction *)
 END_STRUCT;
 ACP10NCTST_typ : STRUCT                                     (* NC Test *)
    Open_UseApplNcObj    : USINT ;                           (* Open test: Use the same NC object as the application *)
@@ -926,7 +935,7 @@ ACP10_HWINFO_typ : STRUCT                                   (* ACOPOS Hardware I
    reserve2             : UINT ;                            (* Reserved *)
    drive                : ACP10_HWIDRIVE_typ ;              (* Drive *)
    card                 : ARRAY [0..3] OF ACP10_HWICARD_typ ;  (* Plug-in card *)
-   motor                : ARRAY [0..1] OF ACP10_HWIMOTOR_typ ;  (* Motor *)
+   motor                : ARRAY [0..2] OF ACP10_HWIMOTOR_typ ;  (* Motor *)
 END_STRUCT;
 ACP10TYPES_typ : STRUCT                                     (* Data structure for additional data types *)
    data_block           : ACP10DATBL_typ ;                  (* Data block operation *)
@@ -1060,6 +1069,17 @@ ACP10VAMOV_typ : STRUCT                                     (* Movement *)
    homing               : ACP10VAHOM_typ ;                  (* Homing procedure *)
    basis                : ACP10BAMOV_typ ;                  (* Basis state *)
 END_STRUCT;
+ACP10VAMSCMDE_typ : STRUCT                                  (* Command: Execute error reaction *)
+   type                 : UINT ;                            (* Type *)
+   ok                   : USINT ;                           (* Operation complete *)
+   error                : USINT ;                           (* Error *)
+END_STRUCT;
+ACP10VAMSG_typ : STRUCT                                     (* Messages *)
+   count                : ACP10MSCNT_typ ;                  (* Count *)
+   record               : ACP10MSREC_typ ;                  (* Error record *)
+   text                 : ACP10MSTXT_typ ;                  (* Error text *)
+   cmd_error            : ACP10VAMSCMDE_typ ;               (* Command: Execute error reaction *)
+END_STRUCT;
 ACP10VAXIS_typ : STRUCT                                     (* ACP10 - Virtual Axis *)
    NOT_USE_1            : ARRAY [0..3] OF USINT ;
    size                 : UINT ;                            (* Size of the corresponding NC manager data type *)
@@ -1077,7 +1097,7 @@ ACP10VAXIS_typ : STRUCT                                     (* ACP10 - Virtual A
    move                 : ACP10VAMOV_typ ;                  (* Movement *)
    setup                : ACP10SETUP_typ ;                  (* Setup *)
    monitor              : ACP10AXMON_typ ;                  (* Monitor *)
-   message              : ACP10MSG_typ ;                    (* Messages (errors, warnings) *)
+   message              : ACP10VAMSG_typ ;                  (* Messages (errors, warnings) *)
    nc_test              : ACP10NCTST_typ ;                  (* NC Test *)
    NOT_USE_3            : ARRAY [0..59] OF USINT ;
 END_STRUCT;
