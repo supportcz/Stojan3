@@ -2,7 +2,7 @@
 *                    B & R   P O S I T I O N I N G                          *
 *****************************************************************************
 *                                                                           *
-*            Header File for Library ACP10MAN (Version 2471)                * 
+*            Header File for Library ACP10MAN (Version 2512)                * 
 *                                                                           *
 **************************** COPYRIGHT (C) **********************************
 *     THIS SOFTWARE IS THE PROPERTY OF B&R AUSTRIA: ALL RIGHTS RESERVED.    *
@@ -11,7 +11,7 @@
 ****************************************************************************/
 
 #ifndef ACP10MAN_H_VERSION 
-#define ACP10MAN_H_VERSION 0x2471 
+#define ACP10MAN_H_VERSION 0x2512 
 
 #include <ncglobal.h>
 #include <acp10par.h>
@@ -131,8 +131,9 @@ typedef struct ACP10AXDBS_typ {               /* Status */
 } ACP10AXDBS_typ;
 
 typedef struct ACP10AXDBP_typ {               /* Parameters */
-   USINT              datobj_name[12];        /* Name of the data object */
-   UINT               reserve;                /* Reserved */
+   USINT              file_device[32];        /* Name of File Device */
+   USINT              datobj_name[32];        /* Name of the data object */
+   UINT               datobj_type;            /* Type of the data object */
    UINT               datblock_par_id;        /* Parameter ID of the data block */
    UINT               idx1_par_id;            /* Parameter ID of data block index 1 */
    UINT               idx1;                   /* Data block index 1 */
@@ -780,7 +781,7 @@ typedef struct ACP10MTR_typ {                 /* Trace */
    REAL               t_delay;                /* Start delay */
    REAL               t_add_net_trigger;      /* Start delay: Value to be added for network trigger */
    ACP10MTRTR_typ     trigger;                /* Trigger */
-   ACP10MTRDA_typ     test_dat[30];           /* Test data */
+   ACP10MTRDA_typ     test_dat[100];          /* Test data */
    ACP10TROBJ_typ     datobj;                 /* Data object */
 } ACP10MTR_typ;
 
@@ -985,7 +986,7 @@ typedef struct ACP10SAFEINDAT_typ {           /* SafeMC: SafeIN data */
    USINT              SafetyActiveSLP;        /* SLP status bit */
    USINT              SafetyActiveSMP;        /* SMP status bit */
    USINT              SafePositionValid;      /* SafePosition is valid */
-   USINT              reserved_stat_b16;      /* reserved_stat_b16 */
+   USINT              SafetyActiveSLA;        /* SLA status bit */
    USINT              StatusSetPosAlive;      /* Setposition is tested */
    USINT              StatusSFR;              /* At least one safety function is requested */
    USINT              AllReqFuncAct;          /* All requested safety functions are active */
@@ -995,8 +996,8 @@ typedef struct ACP10SAFEINDAT_typ {           /* SafeMC: SafeIN data */
    USINT              NotErrFUNC;             /* Functional Fail Safe status bit */
    USINT              SafetyActiveSBT;        /* SBT is active */
    USINT              SafetyStatusSBT;        /* SBT status Bit */
-   USINT              reserved_stat_b26;      /* reserved_stat_b26 */
-   USINT              reserved_stat_b27;      /* reserved_stat_b27 */
+   USINT              RSPValid;               /* RSP Valid bit */
+   USINT              ReqHomingOK;            /* Request Homing OK bit */
    USINT              reserved_stat_b28;      /* reserved_stat_b28 */
    USINT              reserved_stat_b29;      /* reserved_stat_b29 */
    USINT              reserved_stat_b30;      /* reserved_stat_b30 */
@@ -1025,8 +1026,8 @@ typedef struct ACP10SAFEOUTDAT_typ {          /* SafeMC: SafeOUT data */
    USINT              RequestHoming;          /* Homing control bit */
    USINT              RequestSwitch;          /* Switch control bit */
    USINT              RequestSBT;             /* SBT control Bit */
-   USINT              reserved_ctrl_b17;      /* reserved_ctrl_b17 */
-   USINT              reserved_ctrl_b18;      /* reserved_ctrl_b18 */
+   USINT              RequestSLA;             /* SLA control bit */
+   USINT              SwitchHomingMode;       /* Switch Homing Mode bit */
    USINT              reserved_ctrl_b19;      /* reserved_ctrl_b19 */
    USINT              reserved_ctrl_b20;      /* reserved_ctrl_b20 */
    USINT              reserved_ctrl_b21;      /* reserved_ctrl_b21 */

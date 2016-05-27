@@ -253,8 +253,10 @@ extern "C" {
  #define mcBELOW_WINDOW 50U
  #define mcBASIS_PARAMETERS 2
  #define mcAXIS_WARNING 1U
+ #define mcAXIS_PERIOD_MAPPING 1020
  #define mcAXIS_PERIOD 1008
  #define mcAXIS_NETWORK_CYCLE_TIME 1018
+ #define mcAXIS_FACTOR_MAPPING 1019
  #define mcAXIS_FACTOR 1007
  #define mcAXIS_ERROR 0U
  #define mcAVERAGE_WEIGHTED 4U
@@ -512,8 +514,10 @@ extern "C" {
  _IEC_CONST unsigned char mcBELOW_WINDOW = 50U;
  _IEC_CONST float mcBASIS_PARAMETERS = 2;
  _IEC_CONST unsigned char mcAXIS_WARNING = 1U;
+ _IEC_CONST signed short mcAXIS_PERIOD_MAPPING = 1020;
  _IEC_CONST signed short mcAXIS_PERIOD = 1008;
  _IEC_CONST signed short mcAXIS_NETWORK_CYCLE_TIME = 1018;
+ _IEC_CONST signed short mcAXIS_FACTOR_MAPPING = 1019;
  _IEC_CONST signed short mcAXIS_FACTOR = 1007;
  _IEC_CONST unsigned char mcAXIS_ERROR = 0U;
  _IEC_CONST unsigned short mcAVERAGE_WEIGHTED = 4U;
@@ -850,6 +854,7 @@ typedef struct MC_DRIVESTATUS_TYP
 	plcbit AxisError;
 	plcbit LagWarning;
 	plcbit ResetDone;
+	plcbit HoldingBrakeControlStatus;
 } MC_DRIVESTATUS_TYP;
 
 typedef struct MC_ENDLESS_POSITION_DATA
@@ -974,7 +979,7 @@ typedef struct MC_PARTRACE_REF
 	float Delay;
 	float NetTriggerDelay;
 	struct MC_TRACETRIGGER_REF Trigger;
-	struct MC_TRACEPARAM_REF Parameter[30];
+	struct MC_TRACEPARAM_REF Parameter[100];
 } MC_PARTRACE_REF;
 
 typedef struct MC_PARTRACECONFIG_REF
@@ -1442,7 +1447,8 @@ typedef struct MC_0081_IS_TYP
 	unsigned short C_ErrorID;
 	unsigned short C_ReceiveParID;
 	unsigned short readSlot;
-	unsigned short Reserve1;
+	unsigned char ConfigTimeoutCnt;
+	unsigned char Reserve1;
 	unsigned char LockIDSend;
 	unsigned char LockIDReceive;
 	unsigned char LockIDPar;
@@ -1614,7 +1620,8 @@ typedef struct MC_0092_IS_TYP
 	unsigned short VarIndex;
 	unsigned char SptID;
 	unsigned short readSlot;
-	unsigned short Reserve1;
+	unsigned char ConfigTimeoutCnt;
+	unsigned char Reserve1;
 	unsigned char LockIDSend;
 	unsigned char LockIDReceive;
 	unsigned short ArithIndex;
@@ -1680,7 +1687,6 @@ typedef struct MC_0095_IS_TYP
 	unsigned short C_ErrorID;
 	unsigned char Reserve9;
 	unsigned char Reserve10;
-	float AxisScaleFactor;
 } MC_0095_IS_TYP;
 
 typedef struct MC_0096_IS_TYP
@@ -2383,7 +2389,8 @@ typedef struct MC_0124_IS_TYP
 	unsigned short ArithIndex;
 	unsigned char LockIDPar;
 	unsigned char state;
-	unsigned short Reserve;
+	unsigned char ConfigTimeoutCnt;
+	unsigned char Reserve1;
 } MC_0124_IS_TYP;
 
 typedef struct MC_0125_IS_TYP
@@ -2405,7 +2412,7 @@ typedef struct MC_0125_IS_TYP
 	unsigned char LockIDReceive;
 	unsigned short ArithIndex;
 	unsigned char state;
-	unsigned char Reserve1;
+	unsigned char ConfigTimeoutCnt;
 } MC_0125_IS_TYP;
 
 typedef struct MC_0126_IS_TYP
@@ -5869,6 +5876,7 @@ typedef struct MC_CamIn
 	/* VAR_OUTPUT (analog) */
 	unsigned short ErrorID;
 	/* VAR (analog) */
+	unsigned char LockID;
 	unsigned char LockIDPar;
 	unsigned char LockIDInSync;
 	unsigned long C_Master;
@@ -5877,9 +5885,8 @@ typedef struct MC_CamIn
 	signed long C_SlaveOffset;
 	signed long C_MasterScaling;
 	signed long C_SlaveScaling;
-	unsigned char C_StartMode;
-	unsigned char LockID;
 	unsigned short C_CamTableID;
+	unsigned char C_StartMode;
 	unsigned short C_MasterParID;
 	unsigned short C_ErrorID;
 	signed long OldMaCamOffset;
@@ -5900,6 +5907,7 @@ typedef struct MC_CamIn
 	unsigned char state;
 	unsigned char MoveID;
 	unsigned short CC_ErrorID;
+	unsigned char oldMoveID;
 	/* VAR_INPUT (digital) */
 	plcbit Execute;
 	/* VAR_OUTPUT (digital) */
@@ -6737,10 +6745,10 @@ typedef struct MC_TouchProbe
 	/* VAR (analog) */
 	unsigned long C_Axis;
 	struct MC_TRIGGER_REF C_TriggerInput;
-	float C_FirstPosition;
-	float C_LastPosition;
+	signed long C_FirstPosition;
+	signed long C_LastPosition;
 	unsigned short C_ErrorID;
-	float C_RecordedPosition;
+	signed long C_RecordedPosition;
 	unsigned char SavedToDrvCnt;
 	unsigned char Reserve2;
 	unsigned char state;

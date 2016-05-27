@@ -240,6 +240,7 @@ TYPE
 		AxisError : BOOL; (*shows that at least one error or warning has occurred*)
 		LagWarning : BOOL; (*shows that the lag error has exceeded the limit value specified for a warning*)
 		ResetDone : BOOL; (*shows that the drive software was reset*)
+		HoldingBrakeControlStatus: BOOL; (*shows that the holding brake is closed*)
 	END_STRUCT;
 	MC_ENDLESS_POSITION : 	STRUCT  (*structure to save the endless position*)
 		EndlessPositionData : ARRAY[0..1] OF MC_ENDLESS_POSITION_DATA;
@@ -315,7 +316,7 @@ TYPE
 		Delay : REAL; (*trigger delay*)
 		NetTriggerDelay : REAL; (*delay time of the trigger via the network*)
 		Trigger : MC_TRACETRIGGER_REF; (*parameters for trigger event*)
-		Parameter : ARRAY[0..29] OF MC_TRACEPARAM_REF; (*parameters to record*)
+		Parameter : ARRAY[0..99] OF MC_TRACEPARAM_REF; (*parameters to record*)
 	END_STRUCT;
 	MC_PARTRACECONFIG_REF : 	STRUCT  (*structure with function block configuration*)
 		DatObj : MC_DATOBJ_REF; (*parameters for saving the network trace data*)
@@ -727,7 +728,8 @@ TYPE
 		C_ErrorID : UINT; (*internal variable*)
 		C_ReceiveParID : UINT; (*internal variable*)
 		readSlot : UINT; (*internal variable*)
-		Reserve1 : UINT; (*internal variable*)
+		ConfigTimeoutCnt : USINT; (*internal variable*)
+		Reserve1 : USINT;
 		LockIDSend : USINT; (*internal variable*)
 		LockIDReceive : USINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
@@ -885,7 +887,8 @@ TYPE
 		VarIndex : UINT; (*internal variable*)
 		SptID : USINT; (*internal variable*)
 		readSlot : UINT; (*internal variable*)
-		Reserve1 : UINT; (*internal variable*)
+		ConfigTimeoutCnt : USINT; (*internal variable*)
+		Reserve1 : USINT;
 		LockIDSend : USINT; (*internal variable*)
 		LockIDReceive : USINT; (*internal variable*)
 		ArithIndex : UINT; (*internal variable*)
@@ -947,7 +950,6 @@ TYPE
 		C_ErrorID : UINT; (*internal variable*)
 		Reserve9 : USINT; (*alignment*)
 		Reserve10 : USINT; (*alignment*)
-		AxisScaleFactor : REAL; (*internal variable*)
 	END_STRUCT;
 	MC_0096_IS_TYP : 	STRUCT  (*internal structure for MC_TorqueControl*)
 		Execute : BOOL; (*internal variable*)
@@ -1594,7 +1596,8 @@ TYPE
 		ArithIndex : UINT; (*internal variable*)
 		LockIDPar : USINT; (*internal variable*)
 		state : USINT; (*internal variable*)
-		Reserve : UINT; (*internal variable*)
+		ConfigTimeoutCnt : USINT; (*internal variable*)
+		Reserve1 : USINT;
 	END_STRUCT;
 	MC_0125_IS_TYP : 	STRUCT  (*internal structure for MC_BR_MoveCyclicVelocityExt*)
 		CyclicVelocity : REAL; (*internal variable*)
@@ -1614,7 +1617,7 @@ TYPE
 		LockIDReceive : USINT; (*internal variable*)
 		ArithIndex : UINT; (*internal variable*)
 		state : USINT; (*internal variable*)
-		Reserve1 : USINT; (*internal variable*)
+		ConfigTimeoutCnt : USINT; (*internal variable*)
 	END_STRUCT;
 	MC_0126_IS_TYP : 	STRUCT  (*internal structure for MC_BR_GearIn*)
 		RatioNumerator : DINT; (*internal variable*)

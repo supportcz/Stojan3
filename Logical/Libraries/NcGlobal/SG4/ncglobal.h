@@ -2,7 +2,7 @@
 *                    B & R   P O S I T I O N I N G                          *
 *****************************************************************************
 *                                                                           *
-*            Header File for Library NCGLOBAL (Version 2471)                * 
+*            Header File for Library NCGLOBAL (Version 2512)                * 
 *                                                                           *
 **************************** COPYRIGHT (C) **********************************
 *     THIS SOFTWARE IS THE PROPERTY OF B&R AUSTRIA: ALL RIGHTS RESERVED.    *
@@ -451,6 +451,7 @@
  #define ncLINE 372U
  #define ncLINEAR 1U
  #define ncLINEAR2 3U
+ #define ncLINENUMBER 4U
  #define ncLINK 343U
  #define ncLINMOT 11U
  #define ncLOAD 276U
@@ -1207,6 +1208,7 @@
  _IEC_CONST unsigned short ncLINE = 372U;
  _IEC_CONST unsigned char ncLINEAR = 1U;
  _IEC_CONST unsigned char ncLINEAR2 = 3U;
+ _IEC_CONST unsigned char ncLINENUMBER = 4U;
  _IEC_CONST unsigned short ncLINK = 343U;
  _IEC_CONST unsigned char ncLINMOT = 11U;
  _IEC_CONST unsigned short ncLOAD = 276U;

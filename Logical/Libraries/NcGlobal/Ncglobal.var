@@ -426,6 +426,7 @@ VAR CONSTANT
     ncLINE                             :UINT     := 16#0174;      (* Line *)
     ncLINEAR                           :USINT    := 1;            (* Linear *)
     ncLINEAR2                          :USINT    := 3;            (* Linear (mode2) *)
+    ncLINENUMBER                       :USINT    := 4;            (* Line number *)
     ncLINK                             :UINT     := 16#0157;      (* Link *)
     ncLINMOT                           :USINT    := 11;           (* LinMot encoder *)
     ncLOAD                             :UINT     := 16#0114;      (* Load *)
